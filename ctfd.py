@@ -1,18 +1,21 @@
 from cfscrape import *
 from requests import session
 from bs4 import BeautifulSoup
-import json, os, requests
+import json, os, requests, re,sys
 
 class CTFdCrawl:
     def __init__(self, team, passwd, url):
-        self.auth  = dict(name=team, password=passwd)
-        self.ses   = session()
-        self.entry = dict()
-        self.url   = url
+        self.auth   = dict(name=team, password=passwd)
+        self.ses    = session()
+        self.entry  = dict()
+        self.keys   = 'data'
+        self.url    = url
+        self.ch_url = self.url + '/api/v1/challenges'
 
         if not self.login():
             raise Exception('Login Failed')
         print '\n[+] Collecting resources'
+        self.checkVersion()
 
     def login(self):
         resp  = self.ses.get(self.url + '/login')
@@ -25,32 +28,36 @@ class CTFdCrawl:
         resp  = self.ses.post(self.url + '/login', data=self.auth)
         return 'incorrect' not in resp.text
 
+    def checkVersion(self):
+        resp = self.ses.get(self.ch_url)
+        self.version = 'v.1.2.0' if '404' not in resp.text else 'v.1.0'
+
     def antiCloudflare(self, page):
         scrape = create_scraper()
         tokens = get_tokens('{}/{}'.format(self.URL, page))
         return tokens
 
     def parseChall(self, id):
-        r = self.ses.get('{}/api/v1/challenges/{}'.format(self.url,id))
-        return json.loads(r.text.decode('utf-8'))['data']
+        resp = self.ses.get('{}/{}'.format(self.ch_url,id)).json()
+        return resp['data'] if self.version == 'v.1.2.0' else resp
 
     def parseAll(self):
-        print '[+] Finding challs',
-        html  = self.ses.get(self.url + '/api/v1/challenges')
-        data  = sorted(json.loads(html.text)['data'])
-        ids   = [i['id'] for i in data]
+        print '[+] Finding challs'
+        if self.version == 'v.1.0':
+            self.ch_url = self.url + '/chals'
+            self.keys   = 'game'
+        html  = sorted(self.ses.get(self.ch_url).json()[self.keys])
+        ids   = [i['id'] for i in html]
 
         for id in ids:
             data    = self.parseChall(id)
             ch_name = data['name']
-            ch_cat  = data['category']
+            ch_cat  = data['category'] if data['category'] else 'Uncategorized' 
 
             if not self.entry.get(ch_cat):
                 self.entry[ch_cat] = {}
                 count = 1
-                print
-                print ' [v]', ch_cat
-
+                print '\n [v]', ch_cat
             print '  {}. {}'.format(count, ch_name)
 
             entries = {ch_name : {
@@ -93,7 +100,6 @@ class CTFdCrawl:
                     for i in files:
                         filename = i.split('/')[1]
                         if not os.path.exists(directory + '/' + filename):
-                            # print self.url + '/files/' + i
                             resp = self.ses.get(self.url + '/files/' + i, stream=False)
                             with open(directory + '/' + filename, 'wb') as f:
                                 f.write(resp.content)
@@ -103,7 +109,7 @@ def main():
     url    = raw_input('CTFd URL : ')
     user   = raw_input('Username : ')
     passwd = raw_input('Password : ')
-    ctf    = CTFdCrawl(user,passwd,url)    
+    ctf    = CTFdCrawl(user,passwd,url)
     ctf.parseAll()
     ctf.createArchive()    
 
