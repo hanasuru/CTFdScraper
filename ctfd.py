@@ -1,7 +1,7 @@
 from cfscrape import *
 from requests import session
 from bs4 import BeautifulSoup
-import json, os, requests, re
+import json, os, requests, re,sys
 
 class CTFdCrawl:
     def __init__(self, team, passwd, url):
