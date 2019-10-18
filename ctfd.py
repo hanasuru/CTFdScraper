@@ -1,7 +1,7 @@
 from cfscrape import *
 from requests import session
 from bs4 import BeautifulSoup
-import json, os, requests
+import json, os, requests, re
 
 class CTFdCrawl:
     def __init__(self, team, passwd, url):
@@ -88,7 +88,8 @@ class CTFdCrawl:
                     f.write('Description:\n{}'.format(desc))
                     f.write('\n\nHint:\n{}'.format(''.join(vals['Hint'])))
 
-                files = vals['Files']
+                rr = re.compile(r'\/*[a-f0-9]*\/\w*\.*\w*')
+                files = ''.join(rr.findall(vals['Files']))
                 if files:
                     for i in files:
                         filename = i.split('/')[1]
