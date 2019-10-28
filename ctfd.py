@@ -12,7 +12,7 @@ class CTFdCrawl:
 
         if not self.login():
             raise Exception('Login Failed')
-        print '\n[+] Collecting resources'
+        print('\n[+] Collecting resources')
 
     def login(self):
         resp  = self.ses.get(self.url + '/login')
@@ -58,10 +58,10 @@ class CTFdCrawl:
             if not self.entry.get(ch_cat):
                 self.entry[ch_cat] = {}
                 count = 1
-                print
-                print ' [v]', ch_cat
+                print()
+                print (' [v]', ch_cat)
 
-            print '  {}. {}'.format(count, ch_name.encode('utf-8'))
+            print ('  {}. {}'.format(count, ch_name.encode('utf-8')))
 
             entries = {ch_name : {
               'ID'          : data['id'],
@@ -90,7 +90,7 @@ class CTFdCrawl:
                 keys      = r.sub('',keys.strip())
                 directory = '{}/{} [{} pts]'.format(key,keys,vals['Points'])
                 directory = directory.replace(' / ','-')
-                print 'Directory', directory,'has been created'
+                print ('Directory', directory,'has been created')
                 if not os.path.exists(directory):
                     os.makedirs(directory)
                 with open('{}/README.md'.format(directory),'wb') as f:
@@ -109,7 +109,7 @@ class CTFdCrawl:
                                 f.close()
 
 def main():
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
      url    = sys.argv[1]#raw_input('CTFd URL : ')
      user   = sys.argv[2]#raw_input('Username : ')
      passwd = sys.argv[3]#raw_input('Password : ')
