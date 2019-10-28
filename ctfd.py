@@ -45,7 +45,7 @@ class CTFdCrawl:
         return tmp
 
     def parseAll(self):
-        print '[+] Finding challs',
+        print ('[+] Finding challs')
         html  = self.ses.get(self.url + '/api/v1/challenges')
         data  = sorted(json.loads(html.text)['data'])
         ids   = [i['id'] for i in data]
