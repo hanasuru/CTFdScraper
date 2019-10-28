@@ -76,7 +76,7 @@ class CTFdCrawl:
             count += 1
          
     def createArchive(self):
-        print '\n[+] Downloading assets . . .'
+        print ('\n[+] Downloading assets . . .')
         if not os.path.exists(self.title):
             os.makedirs(self.title)
 
