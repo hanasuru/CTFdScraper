@@ -58,7 +58,7 @@ class CTFdCrawl:
               'Points'      : data['value'],
               'Description' : data['description'],
               'Files'       : data['files'],
-              'Hint'        : data['hints']
+              'Hint'        : ''#data['hints']
              }
             }
             
@@ -89,9 +89,10 @@ class CTFdCrawl:
                     f.write('\n\nHint:\n{}'.format(''.join(vals['Hint'])))
 
                 rr = re.compile(r'\/*[a-f0-9]*\/\w*\.*\w*')
-                files = ''.join(rr.findall(vals['Files']))
+                files = vals['Files']
                 if files:
                     for i in files:
+                        i = ''.join(rr.findall(i))
                         filename = i.split('/')[1]
                         if not os.path.exists(directory + '/' + filename):
                             # print self.url + '/files/' + i
@@ -101,9 +102,14 @@ class CTFdCrawl:
                                 f.close()
 
 def main():
-    url    = raw_input('CTFd URL : ')
-    user   = raw_input('Username : ')
-    passwd = raw_input('Password : ')
+    if len(sys.argv) > 1:
+     url    = sys.argv[1]#raw_input('CTFd URL : ')
+     user   = sys.argv[2]#raw_input('Username : ')
+     passwd = sys.argv[3]#raw_input('Password : ')
+    else:
+     url    = raw_input('CTFd URL : ')
+     user   = raw_input('Username : ')
+     passwd = raw_input('Password : ')
     ctf    = CTFdCrawl(user,passwd,url)    
     ctf.parseAll()
     ctf.createArchive()    
