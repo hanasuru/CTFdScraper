@@ -34,6 +34,16 @@ class CTFdCrawl:
         r = self.ses.get('{}/api/v1/challenges/{}'.format(self.url,id))
         return json.loads(r.text.decode('utf-8'))['data']
 
+    def createReadme(self, cate, name, data):
+        tmp  = "# {}\n".format(name)
+        tmp += "#### Points: {} pts\n\n".format(data['Points'])
+        tmp += "## Category\n{}\n\n".format(cate)
+        tmp += "## Description\n>{}\n\n".format(data['Description'].encode('utf-8').replace('\n', '\n>').strip())
+        tmp += "### Hint\n>{}\n\n".format(''.join(data['Hint'].replace('\n', '\n>')))
+        tmp += "## Solution\n1.\n\n"
+        tmp += "### Flag\n`Flag`\n"
+        return tmp
+
     def parseAll(self):
         print '[+] Finding challs',
         html  = self.ses.get(self.url + '/api/v1/challenges')
@@ -51,7 +61,7 @@ class CTFdCrawl:
                 print
                 print ' [v]', ch_cat
 
-            print '  {}. {}'.format(count, ch_name)
+            print '  {}. {}'.format(count, ch_name.encode('utf-8'))
 
             entries = {ch_name : {
               'ID'          : data['id'],
@@ -84,19 +94,16 @@ class CTFdCrawl:
                 if not os.path.exists(directory):
                     os.makedirs(directory)
                 with open('{}/README.md'.format(directory),'wb') as f:
-                    desc = vals['Description'].encode('utf-8').strip()
-                    f.write('Description:\n{}'.format(desc))
-                    f.write('\n\nHint:\n{}'.format(''.join(vals['Hint'])))
+                    readme_tmp = self.createReadme(key, keys, vals)
+                    f.write(readme_tmp)
 
-                rr = re.compile(r'\/*[a-f0-9]*\/\w*\.*\w*')
+                rr2 = re.compile(r'\/*[a-f0-9]*\/*[a-zA-Z0-9_-]*\.*\w*')
                 files = vals['Files']
                 if files:
-                    for i in files:
-                        i = ''.join(rr.findall(i))
-                        filename = i.split('/')[1]
+                    for url_file in files:
+                        filename = ''.join(rr2.findall(url_file.split('?')[0])).split('/')[3]
                         if not os.path.exists(directory + '/' + filename):
-                            # print self.url + '/files/' + i
-                            resp = self.ses.get(self.url + '/files/' + i, stream=False)
+                            resp = self.ses.get(self.url + url_file[1:], stream=False)
                             with open(directory + '/' + filename, 'wb') as f:
                                 f.write(resp.content)
                                 f.close()
