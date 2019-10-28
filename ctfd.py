@@ -32,13 +32,18 @@ class CTFdCrawl:
 
     def parseChall(self, id):
         r = self.ses.get('{}/api/v1/challenges/{}'.format(self.url,id))
-        return json.loads(r.text.decode('utf-8'))['data']
+        if sys.version_info.major == 2:
+            return json.loads(r.text.decode('utf-8'))['data']
+        else:
+            return json.loads(r.text)['data']
 
     def createReadme(self, cate, name, data):
-        tmp  = "# {}\n".format(name)
-        tmp += "#### Points: {} pts\n\n".format(data['Points'])
+        tmp  = "# {} [{} pts]\n\n".format(name, data['Points'])
         tmp += "## Category\n{}\n\n".format(cate)
-        tmp += "## Description\n>{}\n\n".format(data['Description'].encode('utf-8').replace('\n', '\n>').strip())
+        if sys.version_info.major == 2:
+            tmp += "## Description\n>{}\n\n".format(data['Description'].encode('utf-8').replace('\n', '\n>').strip())
+        else:
+            tmp += "## Description\n>{}\n\n".format(data['Description'].replace('\n', '\n>').strip())
         tmp += "### Hint\n>{}\n\n".format(''.join(data['Hint'].replace('\n', '\n>')))
         tmp += "## Solution\n1.\n\n"
         tmp += "### Flag\n`Flag`\n"
@@ -47,8 +52,12 @@ class CTFdCrawl:
     def parseAll(self):
         print ('[+] Finding challs')
         html  = self.ses.get(self.url + '/api/v1/challenges')
-        data  = sorted(json.loads(html.text)['data'])
-        ids   = [i['id'] for i in data]
+        if sys.version_info.major == 2:
+            data  = sorted(json.loads(html.text)['data'])
+        else:
+            data  = json.loads(html.text)['data']
+            data.sort(key=lambda s: (s['category'], s['name']))
+        ids       = [i['id'] for i in data]
 
         for id in ids:
             data    = self.parseChall(id)
@@ -58,10 +67,13 @@ class CTFdCrawl:
             if not self.entry.get(ch_cat):
                 self.entry[ch_cat] = {}
                 count = 1
-                print()
-                print (' [v]', ch_cat)
+                print ('\n[v][No] ' + ch_cat)
 
-            print ('  {}. {}'.format(count, ch_name.encode('utf-8')))
+            if sys.version_info.major == 2:
+                print ('    {:02d}. {}'.format(count, ch_name.encode('utf-8')))
+            else:
+                print ('    {:02d}. {}'.format(count, ch_name))
+                
 
             entries = {ch_name : {
               'ID'          : data['id'],
@@ -82,42 +94,65 @@ class CTFdCrawl:
 
         os.chdir(self.title)
         with open('challs.json','wb') as f:
-            f.write(json.dumps(self.entry ,sort_keys=True, indent=4))
+            if sys.version_info.major == 2:
+                f.write(json.dumps(self.entry ,sort_keys=True, indent=4))
+            else:
+                f.write(bytes(json.dumps(self.entry ,sort_keys=True, indent=4).encode()))
 
         r = re.compile("[^A-Za-z0-9 .\'_-]")
-        for key, val in self.entry.iteritems():
-            for keys, vals in val.iteritems():
+
+        if sys.version_info.major == 2:
+            entry_items = self.entry.iteritems()
+        else:
+            entry_items = self.entry.items()
+            
+        for key, val in entry_items:
+            if sys.version_info.major == 2:
+                val_items = val.iteritems()
+            else:
+                val_items = val.items()
+                
+            for keys, vals in val_items:
                 keys      = r.sub('',keys.strip())
                 directory = '{}/{} [{} pts]'.format(key,keys,vals['Points'])
                 directory = directory.replace(' / ','-')
-                print ('Directory', directory,'has been created')
+                print ('    Directory '+directory+' has been created')
                 if not os.path.exists(directory):
                     os.makedirs(directory)
                 with open('{}/README.md'.format(directory),'wb') as f:
                     readme_tmp = self.createReadme(key, keys, vals)
-                    f.write(readme_tmp)
-
-                rr2 = re.compile(r'\/*[a-f0-9]*\/*[a-zA-Z0-9_-]*\.*\w*')
+                    if sys.version_info.major == 2:
+                        f.write(readme_tmp)
+                    else:
+                        f.write(bytes(readme_tmp.encode()))
+                        
                 files = vals['Files']
                 if files:
                     for url_file in files:
-                        filename = ''.join(rr2.findall(url_file.split('?')[0])).split('/')[3]
+                        filename = url_file.split('/')[3].split('?')[0]
                         if not os.path.exists(directory + '/' + filename):
                             resp = self.ses.get(self.url + url_file[1:], stream=False)
                             with open(directory + '/' + filename, 'wb') as f:
                                 f.write(resp.content)
                                 f.close()
+        print ('\n[+] Downloaded Assets Successfully 100%')
 
 def main():
     if len(sys.argv) > 2:
-     url    = sys.argv[1]#raw_input('CTFd URL : ')
-     user   = sys.argv[2]#raw_input('Username : ')
-     passwd = sys.argv[3]#raw_input('Password : ')
+     url           = sys.argv[1]
+     user          = sys.argv[2]
+     passwd        = sys.argv[3]
     else:
-     url    = raw_input('CTFd URL : ')
-     user   = raw_input('Username : ')
-     passwd = raw_input('Password : ')
-    ctf    = CTFdCrawl(user,passwd,url)    
+        if sys.version_info.major == 2:
+            url    = raw_input('CTFd URL : ')
+            user   = raw_input('Username : ')
+            passwd = raw_input('Password : ')
+        else:
+            url    = input('CTFd URL : ')
+            user   = input('Username : ')
+            passwd = input('Password : ')
+            
+    ctf            = CTFdCrawl(user,passwd,url)    
     ctf.parseAll()
     ctf.createArchive()    
 
