@@ -1,3 +1,4 @@
 request
 beautifulsoup4
 cfscrape
+lxml
