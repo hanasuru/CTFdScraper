@@ -21,11 +21,12 @@ $ python2 ctfd.py
 CTFd URL : SOME_URL
 Username : SOME_USER
 Password : SOME_PASSWD
+Output (this dir input blank)  : SOME_BASEDIR
 ```
 
 #### Usage For Oneline Python 2
 ```bash
-$ python2 ctfd.py SOME_URL SOME_USER SOME_PASSWD
+$ python2 ctfd.py SOME_URL SOME_USER SOME_PASSWD SOME_BASEDIR
 ```
 
 #### Usage For Python 3
@@ -34,9 +35,10 @@ $ python3 ctfd.py
 CTFd URL : SOME_URL
 Username : SOME_USER
 Password : SOME_PASSWD
+Output (this dir input blank)  : SOME_BASEDIR
 ```
 
 #### Usage For Oneline Python 3
 ```bash
-$ python3 ctfd.py SOME_URL SOME_USER SOME_PASSWD
+$ python3 ctfd.py SOME_URL SOME_USER SOME_PASSWD SOME_BASEDIR
 ```

@@ -4,11 +4,12 @@ from bs4 import BeautifulSoup
 import json, os, requests, re,sys
 
 class CTFdCrawl:
-    def __init__(self, team, passwd, url):
-        self.auth  = dict(name=team, password=passwd)
-        self.ses   = session()
-        self.entry = dict()
-        self.url   = url
+    def __init__(self, basedir, team, passwd, url):
+        self.auth      = dict(name=team, password=passwd)
+        self.ses       = session()
+        self.entry     = dict()
+        self.url       = url
+        self.basedir   = basedir
 
         if not self.login():
             raise Exception('Login Failed')
@@ -89,10 +90,10 @@ class CTFdCrawl:
          
     def createArchive(self):
         print ('\n[+] Downloading assets . . .')
-        if not os.path.exists(self.title):
-            os.makedirs(self.title)
+        if not os.path.exists(self.basedir+self.title):
+            os.makedirs(self.basedir+self.title)
 
-        os.chdir(self.title)
+        os.chdir(self.basedir+self.title)
         with open('challs.json','wb') as f:
             if sys.version_info.major == 2:
                 f.write(json.dumps(self.entry ,sort_keys=True, indent=4))
@@ -142,17 +143,24 @@ def main():
      url           = sys.argv[1]
      user          = sys.argv[2]
      passwd        = sys.argv[3]
+     try:
+         basedir    = sys.argv[4]
+     except:
+         basedir    = ''
     else:
         if sys.version_info.major == 2:
             url    = raw_input('CTFd URL : ')
             user   = raw_input('Username : ')
             passwd = raw_input('Password : ')
+            basedir = raw_input('Output (this dir input blank)  : ')
         else:
             url    = input('CTFd URL : ')
             user   = input('Username : ')
             passwd = input('Password : ')
-            
-    ctf            = CTFdCrawl(user,passwd,url)    
+            basedir = input('Output (this dir input blank)  : ')
+    if basedir.replace(' ', '') == '':
+        basedir = '.'
+    ctf            = CTFdCrawl(basedir+'/', user,passwd,url)    
     ctf.parseAll()
     ctf.createArchive()    
 
