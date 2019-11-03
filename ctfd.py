@@ -144,9 +144,15 @@ class CTFdCrawl:
                 files = vals['Files']
                 if files:
                     for url_file in files:
-                        filename = url_file.split('/')[3].split('?')[0]
+                        if self.version == 'v.1.0':
+                            filename = url_file.split('/')[1]
+                        else:
+                            filename = url_file.split('/')[3].split('?')[0]
                         if not os.path.exists(directory + '/' + filename):
-                            resp = self.ses.get(self.url + url_file[1:], stream=False)
+                            if self.version == 'v.1.0':
+                                resp = self.ses.get(self.url + '/files/' + url_file, stream=False)
+                            else:
+                                resp = self.ses.get(self.url + url_file, stream=False)
                             with open(directory + '/' + filename, 'wb') as f:
                                 f.write(resp.content)
                                 f.close()
