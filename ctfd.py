@@ -8,12 +8,16 @@ class CTFdCrawl:
         self.auth      = dict(name=team, password=passwd)
         self.ses       = session()
         self.entry     = dict()
+        self.keys      = 'data'
         self.url       = url
         self.basedir   = basedir
+        self.ch_url    = self.url + '/api/v1/challenges'
+        self.hi_url    = self.url + '/api/v1/hints'
 
         if not self.login():
             raise Exception('Login Failed')
         print('\n[+] Collecting resources')
+        self.checkVersion()
 
     def login(self):
         resp  = self.ses.get(self.url + '/login')
@@ -25,18 +29,21 @@ class CTFdCrawl:
 
         resp  = self.ses.post(self.url + '/login', data=self.auth)
         return 'incorrect' not in resp.text
-
+    def checkVersion(self):
+        resp = self.ses.get(self.ch_url)
+        self.version = 'v.1.2.0' if '404' not in resp.text else 'v.1.0'
+        
     def antiCloudflare(self, page):
         scrape = create_scraper()
         tokens = get_tokens('{}/{}'.format(self.URL, page))
         return tokens
 
     def parseChall(self, id):
-        r = self.ses.get('{}/api/v1/challenges/{}'.format(self.url,id))
+        r = self.ses.get('{}/{}'.format(self.ch_url,id))
         if sys.version_info.major == 2:
-            return json.loads(r.text.decode('utf-8'))['data']
+            return json.loads(r.text.decode('utf-8'))['data'] if self.version == 'v.1.2.0' else json.loads(r.text.decode('utf-8'))
         else:
-            return json.loads(r.text)['data']
+            return json.loads(r.text)['data'] if self.version == 'v.1.2.0' else json.loads(r.text)
 
     def createReadme(self, cate, name, data):
         tmp  = "# {} [{} pts]\n\n".format(name, data['Points'])
@@ -52,11 +59,15 @@ class CTFdCrawl:
 
     def parseAll(self):
         print ('[+] Finding challs')
-        html  = self.ses.get(self.url + '/api/v1/challenges')
+        if self.version == 'v.1.0':
+            self.ch_url = self.url + '/chals'
+            self.hi_url = self.url + '/hints'
+            self.keys   = 'game'
+        html  = self.ses.get(self.ch_url)
         if sys.version_info.major == 2:
-            data  = sorted(json.loads(html.text)['data'])
+            data  = sorted(json.loads(html.text)[self.keys])
         else:
-            data  = json.loads(html.text)['data']
+            data  = json.loads(html.text)[self.keys]
             data.sort(key=lambda s: (s['category'], s['name']))
         ids       = [i['id'] for i in data]
 
