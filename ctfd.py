@@ -115,18 +115,21 @@ class CTFdCrawl:
                 
             for keys, vals in val_items:
                 keys      = r.sub('',keys.strip())
-                directory = '{}/{} [{} pts]'.format(key,keys,vals['Points'])
+                directory = '{}/{}'.format(key,keys)
                 directory = directory.replace(' / ','-')
+                while directory[-1] == ' ':
+                    directory = directory[:-1]
                 print ('    Directory '+directory+' has been created')
                 if not os.path.exists(directory):
                     os.makedirs(directory)
-                with open('{}/README.md'.format(directory),'wb') as f:
-                    readme_tmp = self.createReadme(key, keys, vals)
-                    if sys.version_info.major == 2:
-                        f.write(readme_tmp)
-                    else:
-                        f.write(bytes(readme_tmp.encode()))
-                        
+                if not os.path.exists('{}/README.md'.format(directory)):
+                    with open('{}/README.md'.format(directory),'wb') as f:
+                        readme_tmp = self.createReadme(key, keys, vals)
+                        if sys.version_info.major == 2:
+                            f.write(readme_tmp)
+                        else:
+                            f.write(bytes(readme_tmp.encode()))
+                            
                 files = vals['Files']
                 if files:
                     for url_file in files:
