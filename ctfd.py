@@ -6,6 +6,7 @@ import json, os, requests, re,sys
 class CTFdCrawl:
     def __init__(self, basedir, team, passwd, url):
         self.auth      = dict(name=team, password=passwd)
+        self.header = {'User-Agent' : 'curl/7.37.0'}
         self.ses       = session()
         self.entry     = dict()
         self.keys      = 'data'
@@ -20,17 +21,17 @@ class CTFdCrawl:
         self.checkVersion()
 
     def login(self):
-        resp  = self.ses.get(self.url + '/login')
+        resp  = self.ses.get(self.url + '/login', headers=self.header)
         soup  = BeautifulSoup(resp.text,'lxml')
         nonce = soup.find('input', {'name':'nonce'}).get('value')
         
         self.auth['nonce'] = nonce
         self.title = soup.title.string
 
-        resp  = self.ses.post(self.url + '/login', data=self.auth)
+        resp  = self.ses.post(self.url + '/login', data=self.auth, headers=self.header)
         return 'incorrect' not in resp.text
     def checkVersion(self):
-        resp = self.ses.get(self.ch_url)
+        resp = self.ses.get(self.ch_url, headers=self.header)
         self.version = 'v.1.2.0' if '404' not in resp.text else 'v.1.0'
         
     def antiCloudflare(self, page):
@@ -39,7 +40,7 @@ class CTFdCrawl:
         return tokens
 
     def parseChall(self, id):
-        r = self.ses.get('{}/{}'.format(self.ch_url,id))
+        r = self.ses.get('{}/{}'.format(self.ch_url,id), headers=self.header)
         if sys.version_info.major == 2:
             return json.loads(r.text.decode('utf-8'))['data'] if self.version == 'v.1.2.0' else json.loads(r.text.decode('utf-8'))
         else:
@@ -63,7 +64,7 @@ class CTFdCrawl:
             self.ch_url = self.url + '/chals'
             self.hi_url = self.url + '/hints'
             self.keys   = 'game'
-        html  = self.ses.get(self.ch_url)
+        html  = self.ses.get(self.ch_url, headers=self.header)
         if sys.version_info.major == 2:
             data  = sorted(json.loads(html.text)[self.keys])
         else:
