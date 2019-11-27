@@ -10,4 +10,4 @@ $ python ctfd.py <url> <user> <passwd>
 ```
 
 #### Example
-![Alt text](./demo.svg)
+[![asciicast](https://asciinema.org/a/283925.svg)](https://asciinema.org/a/283925)
