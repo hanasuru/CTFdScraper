@@ -35,7 +35,7 @@ class CTFdScrape(object):
         self.hi_url  = self.url + '/api/v1/hints'
         self.lg_url  = self.url + '/login'
         # Regex Rule
-        self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/\w*\.*\w*)')
+        self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/.*\.*\w*)')
         # Other
         self.dlSize  = 0
         self.chcount = 0
@@ -138,9 +138,10 @@ class CTFdScrape(object):
         if not os.path.exists(path):
             os.makedirs(path)
 
-            for i in files:
-                url = self.regex.search(i).group(2)
-                filename = url.split('/')[-1]
+        for i in files:
+            url = self.regex.search(i).group(2)
+            filename = url.split('/')[-1].split('?')[0]
+            if not os.path.exists(path + '/' + filename):
                 while 1:
                     try:
                       resp = self.ses.get(self.url + '/files/' + url, stream=True)
@@ -188,7 +189,7 @@ class CTFdScrape(object):
             self.startThread(threads, msg)
 
 def main():
-    if len(sys.argv) > 1:
+    if len(sys.argv) > 2:
         url     = sys.argv[1]
         user    = sys.argv[2]
         passwd  = sys.argv[3]
