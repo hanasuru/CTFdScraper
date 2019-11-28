@@ -29,7 +29,7 @@ class CTFdScrape(object):
         self.entry   = dict(url=self.url, data={})
         # Persistent session
         self.ses     = session()
-        self.ses.headers.update({'User-Agent' : 'curl/7.37.0'})
+        self.ses.headers.update({'User-Agent' : 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'})
         # CTFd Endpoint
         self.ch_url  = self.url + '/api/v1/challenges'
         self.hi_url  = self.url + '/api/v1/hints'
