@@ -1,48 +1,65 @@
 #!/usr/bin/env python2
+from halo import Halo
 from threading import Thread, Lock
-from progress.bar import IncrementalBar
 from requests import session
+from argparse import Namespace
 from bs4 import BeautifulSoup
-import json, os, requests, re,sys, time
+import logging
+import sys, os
+import requests, json
+import re, time
+
+try:
+   import queue
+except ImportError:
+   import Queue as queue
 
 class CTFdScrape(object):
-    def __init__(self, team, passwd, url):
-        self.auth   = dict(name=team, password=passwd)
-        self.url    = url
-        self.defineVar()
-        
+    __userAgent = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
+
+    def __init__(self, team, passwd, url, path):
+        self.auth    = dict(name=team, password=passwd)
+        self.url     = url
+        self.dlSize  = 0.0
+        self.chcount = 0
+        self.chfiles = 0
+        self.starTim = time.time()
+        self.__setEnVar()
+
         # Login Handle
-        print '\n+ Authenticating'
-        if not self.login():
-            raise Exception('- Login Failed')
-        self.manageVersion()
+        with Halo(text='\n Authenticating') as sp:
+            if not self.__login():
+                sp.fail(' Login Failed :(')
+                sys.exit()
+            sp.succeed(' Login Succees')
+            self.__manageVersion()
         
         # Create Folder
-        if not os.path.exists(self.title):
-            os.makedirs(self.title)
-        os.chdir(self.title)
+        if not os.path.exists(path+self.title):
+            os.makedirs(path+self.title)
+        os.chdir(path+self.title)
 
-    def defineVar(self):
+
+    def __setEnVar(self):
         # CTFd params
         self.keys    = 'data'
         self.version = 'v.1.0'
         self.entry   = dict(url=self.url, data={})
+       
         # Persistent session
         self.ses     = session()
-        self.ses.headers.update({'User-Agent' : 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'})
+        self.ses.headers.update({'User-Agent' : self.__userAgent})
+       
         # CTFd Endpoint
         self.ch_url  = self.url + '/api/v1/challenges'
         self.hi_url  = self.url + '/api/v1/hints'
         self.lg_url  = self.url + '/login'
-        # Regex Rule
-        self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/.*\.*\w*)')
+        
         # Other
-        self.dlSize  = 0
-        self.chcount = 0
-        self.chfiles = 0
-        self.starTim = time.time()
+        self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/.*\.*\w*)')
+        self.f       = []
 
-    def login(self):
+    def __login(self):
         resp  = self.ses.get(self.lg_url)
         soup  = BeautifulSoup(resp.text,'lxml')
         nonce = soup.find('input', {'name':'nonce'}).get('value')
@@ -53,7 +70,7 @@ class CTFdScrape(object):
         resp  = self.ses.post(self.lg_url, data=self.auth)
         return 'incorrect' not in resp.text
 
-    def manageVersion(self):
+    def __manageVersion(self):
         resp = self.ses.get(self.ch_url)
         if '404' in resp.text:
             self.keys    = 'game'
@@ -61,28 +78,32 @@ class CTFdScrape(object):
             self.ch_url  = self.url + '/chals'
             self.hi_url  = self.url + '/hints'
 
-    def getHintById(self, id):
+    def __getHintById(self, id):
         resp = self.ses.get('%s/%s' % (self.hi_url,id)).json()
         return resp['data']['content']
 
-    def getHints(self, data):
+    def __getHints(self, data):
         res = [] 
         for hint in data:
             if hint['cost'] == 0:
                 if self.version != 'v.1.2.0':
-                    res.append(self.getHintById(hint['id']))
+                    res.append(self.__getHintById(hint['id']))
                 else:
-                    res.append(hint['hint'])
+                    res.append(hint['hint'].encode('utf-8'))
         return res
 
-    def getChallById(self, id, lock=None):
-        if self.version != 'v.1.2.0':
-            resp = self.ses.get('%s/%s' % (self.ch_url,id)).json()
-            self.parseData(resp['data'])
-        else:
-            self.parseData(self.c[id])
+    def __getChall(self, q):
+        while not q.empty():
+            id = q.get()
+            if self.version != 'v.1.2.0':
+                resp = self.ses.get('%s/%s' % (self.ch_url,id)).json()
+                self.c[id] = self.__parseData(resp['data'])
+            else:
+                self.c[id] = self.__parseData(self.c[id])
+            q.task_done()
+        return True
 
-    def parseData(self, data):
+    def __parseData(self, data):
         entry = {
             'id'          : data['id'],
             'name'        : data['name'],
@@ -90,114 +111,123 @@ class CTFdScrape(object):
             'description' : data['description'],
             'files'       : data['files'],
             'category'    : data['category'],
-            'hints'       : self.getHints(data['hints']) # not checked yet
+            'hints'       : self.__getHints(data['hints'])
         }
-        # print json.dumps(entry ,sort_keys=True, indent=4)
+        # print(json.dumps(entry, sort_keys=True, indent=4))
         self.chcount += 1
-        self.createArchive(entry)
+        return entry
 
-    def getChalls(self):
-        print '+ Collecting challs'
-        challs = self.ses.get(self.ch_url).json()[self.keys]
-        lists  = dict()
-        self.c = dict() # v.1.2.0 only
-
-        for ch in sorted(challs):
-            genre = ch['category']
-            chall = lists.get(genre, list()) 
-            if not chall:
-                print '\n [v]', genre
-                lists[genre] = chall
-                count = 1
-            print '  %s. %s' %(count, ch['name'])
-            chall.append(ch['id'])
-            self.c.update({ch['id'] : ch})
-            count += 1
-
-        # Archiving files
-        print '\n+ Downloading Assets'
-        self.challThreader(lists)
-        
-        # Archiving json file
-        with open('challs.json','wb') as f:
-            f.write(json.dumps(self.entry ,sort_keys=True, indent=4))
-
-        # Show report
-        print '\n+ Total challs : {}'.format(self.chcount)
-        print '+ Downloaded file : {}'.format(self.chfiles)
-        print '+ Downloaded size : {0:.2f} KB'.format(self.dlSize/1000)
-        print '\n+ Finished in {0:.2f} second'.format(time.time() - self.starTim)
-
-    def createArchive(self, content):
-        for key,val in content.items():
-            exec(key+'=val')
-
-        path = '%s/%s' % (category,name)
-        path = path.replace(' / ','-')
-        
-        if not os.path.exists(path):
-            os.makedirs(path)
-
-        for i in files:
-            url = self.regex.search(i).group(2)
-            filename = url.split('/')[-1].split('?')[0]
+    def __download(self, q):
+        while not q.empty():
+            path, url = q.get()
+            filename  = url.split('/')[-1].split('?')[0]
             if not os.path.exists(path + '/' + filename):
-                while 1:
-                    try:
-                      resp = self.ses.get(self.url + '/files/' + url, stream=True)
-                      break
-                    except:
-                      pass
+                try:
+                    resp = self.ses.get(self.url + '/files/' + url, stream=True)
+                    with open(path + '/' + filename, 'wb') as handle:
+                        for chunk in resp.iter_content(chunk_size=512):
+                            if chunk:
+                                handle.write(chunk)
+                    self.dlSize  += int(resp.headers.get('Content-Length', 0))
+                    self.chfiles += 1
+                except:
+                    pass
+            q.task_done()
 
-                with open(path + '/' + filename, 'wb') as handle:
-                    for chunk in resp.iter_content(chunk_size=512):
-                        if chunk:
-                            handle.write(chunk)
-                self.dlSize  += int(resp.headers.get('Content-Length', 0))
-                self.chfiles += 1
-      
-        with open('%s/README.md' % (path),'wb') as f:
-            desc = description.encode('utf-8').strip()
-            name = name.encode('utf-8').strip()
-            f.write('# %s [%s pts]\n\n' % (name, points))
-            f.write('## Category\n%s\n\n' % (category))
-            f.write('## Description\n>%s\n\n' % (desc))
-            f.write('### Hint\n>%s\n\n' % ('\n>'.join(hints)))
-            f.write('## Solution\n\n\n')
-            f.write('### Flag\n\n')
-
-        data = self.entry['data'].get(category, list())
-        if not data:
-            self.entry['data'][category] = data
-        data.append(content)
-        self.bar.next()
-
-    def startThread(self, threads, msg):
-        self.bar  = IncrementalBar('  {0:<19}'.format(msg),\
-                    max=len(threads), suffix='%(percent)d%%')
+        return True
         
-        [i.start() for i in threads]
-        [i.join() for i in threads]
-        self.bar.finish()
+    def __populate(self, q):
+        while not q.empty():
+            vals = self.c[q.get()]
+            ns   = Namespace(**vals)
 
-    def challThreader(self, challs):
-        for msg,val in challs.iteritems():
-            lock   = []
-            threads = []            
-            for i in val:
-                threads.append(Thread(target=self.getChallById, args=(i, lock)))
-            self.startThread(threads, msg)
+            path = '%s/%s' % (ns.category,ns.name)
+            path = path.replace(' / ','-')
+            if not os.path.exists(path):
+                os.makedirs(path)
+
+            with open('%s/README.md' % (path),'wb') as f:
+                desc  = ns.description.encode('utf-8').strip()
+                name  = ns.name.encode('utf-8').strip()
+                cat   = ns.category.encode('utf-8').strip()
+                hint  = '\n>'.join(ns.hints).encode('utf-8')
+                cont  = '# %s [%s pts]\n\n' % (name, ns.points)
+                cont += '## Category\n%s\n\n' % (cat)
+                cont += '## Description\n>%s\n\n' % (desc)
+                cont += '### Hint\n>%s\n\n' % (hint)
+                cont += '## Solution\n\n\n'
+                cont += '### Flag\n\n'
+
+                if sys.version_info.major == 2:
+                    f.write(cont)
+                else:
+                    f.write(bytes(cont.encode()))
+
+            self.f += [(path, self.regex.search(i).group(2)) for i in ns.files]
+            data    = self.entry['data'].get(ns.category, list())
+            if not data:
+                self.entry['data'][ns.category] = data
+            data.append(vals)
+            q.task_done()
+
+        return True
+
+    def __listChall(self, sp):
+        for key,val in self.entry['data'].items():
+            sp.start('{0:<20}({1:<0})'.format(key, len(val)))
+            sp.succeed()
+
+    def __Threader(self, elements, action=None, nodes=3):
+        que = queue.Queue()
+        [que.put(_) for _ in elements]
+
+        for i in range(nodes):
+            worker = Thread(target=action, args=(que, ))
+            worker.setDaemon(True)
+            worker.start()
+        que.join()
+        del que
+
+    def getChallenges(self):
+        with Halo(text='\n Collecting challs') as sp:
+            challs  = self.ses.get(self.ch_url).json()[self.keys]
+            challs  = sorted(challs, key=lambda _: _['category']) 
+            self.c  = {ch['id'] : ch for ch in challs}
+            sp.succeed('Collected %s challenges'%(len(self.c)))
+        return True
+
+    def createArchive(self):
+        with Halo(text='\n Downloading Assets') as sp:
+            self.__Threader(self.c, self.__getChall,5)
+            self.__Threader(self.c, self.__populate)
+            self.__Threader(self.f, self.__download)
+            sp.succeed('Downloaded {0:} files ({1:.2f} MB)'.format(self.chfiles,self.dlSize/10**6))
+
+    def review(self):
+        print('\n[Summary]')
+        self.__listChall(Halo())
+        print('\n[Finished in {0:.2f} second]'.format(time.time() - self.starTim))
+        with open('challs.json','wb') as f:
+            data = json.dumps(self.entry ,sort_keys=True, indent=4)
+            if sys.version_info.major == 2:
+                f.write(data)
+            else:
+                f.write(bytes(data.encode()))
 
 def main():
     if len(sys.argv) > 2:
         url     = sys.argv[1]
         user    = sys.argv[2]
         passwd  = sys.argv[3]
-    
-        ctf = CTFdScrape(user,passwd,url)
-        ctf.getChalls()
+        path    = sys.argv[4] + '/'\
+                  if len(sys.argv)==5 else ''
+                  
+        ctf = CTFdScrape(user,passwd,url,path)
+        ctf.getChallenges()
+        ctf.createArchive()
+        ctf.review()
     else:
-        print 'Usage: python2', sys.argv[0], '<url> <user> <passwd>'
+        print('Usage: python2 '+sys.argv[0]+ ' <url> <user> <passwd> [path=dir]')
 
 if __name__ == '__main__':
     main()
