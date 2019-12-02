@@ -1,4 +1,4 @@
 requests
 bs4
-progress
+halo
 lxml
