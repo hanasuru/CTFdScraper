@@ -6,7 +6,7 @@ $ pip install -r requirements.txt
 ```
 #### Usage
 ```bash
-$ python ctfd.py <url> <user> <passwd>
+$ python ctfd.py <url> <user> <passwd> [path=dir]
 ```
 
 #### Example
