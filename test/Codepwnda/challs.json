@@ -1,284 +1,382 @@
 {
-    "Crypto": {
-        "BabyRSA": {
-            "Description": "Wait a minute... I see something unusual\r\n\r\nauthor : deomkicer", 
-            "Files": [
-                "/files/1e56e441598228566c72019605b9be1b/babyrsa.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozfQ.XbakeQ.aFbXzl2J4sYp1IhkzdDRVnKpuHc", 
-                "/files/f1afdca0436de460a4384d12718034fe/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo0Mn0.XbakeQ.FIvYnZFhhPtmgcL7xcydr6ek12Q"
-            ], 
-            "Hint": "", 
-            "ID": 1, 
-            "Points": 69
-        }, 
-        "Do While": {
-            "Description": "author : deomkicer", 
-            "Files": [
-                "/files/9785380c7df08ed01a6cb17325f4e45d/chall.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxOH0.XbakeQ.IMHnJgEvz8Dm2ylFcQfLnUgjyQU", 
-                "/files/863b930c053102839d3a9e91059aacf0/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxOX0.XbakeQ.4_9HJYRbEQC9Bzf4WZhS_Po_j68"
-            ], 
-            "Hint": "", 
-            "ID": 15, 
-            "Points": 47
-        }, 
-        "Little Bit": {
-            "Description": "author : deomkicer", 
-            "Files": [
-                "/files/00aa9323846462f2de910eda5ff3cc0c/chall.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxNn0.XbakeQ.HsjrNoUKztFpoK2eHq53MWJxtU0", 
-                "/files/7304021db1e43d4c05b2498e6a38005d/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxN30.XbakeQ.jriDRhSTIFQotPtuchTCUtfX-AI"
-            ], 
-            "Hint": "", 
-            "ID": 14, 
-            "Points": 53
-        }, 
-        "Living in 2099": {
-            "Description": "Di tahun 2099, CPU komputer berkembang pesat dibandingkan dengan 100 tahun yang lalu. Seperti komputer milik Friska, komputer miliknya dapat melakukan enkripsi dengan komputasi besar dalam waktu singkat. Bisakah kamu melakukan dekripsi tanpa menggunakan super-computer?\r\n\r\nauthor : deomkicer", 
-            "Files": [
-                "/files/dff7506ad6bd4bc1dfb1b1ba49c8106e/output?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo0NH0.XbakeQ.o8SmTbYpsSv4_CfSbRTyzkqMYUg", 
-                "/files/f9f66f07dc3996c79d882ee3a6e28ddb/release.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo0NX0.XbakeQ.oXgeMhOMfi8TZsPgZOveF5SAlgM"
-            ], 
-            "Hint": "", 
-            "ID": 33, 
-            "Points": 77
-        }, 
-        "Mxor": {
-            "Description": "Sebuah pesan yang mewakili suara rakyat\r\n\r\nauthor : deomkicer", 
-            "Files": [
-                "/files/7cec73c16f21192876091318dc20e9cf/chall.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyMn0.XbakeQ.PaZHfDcQq5DnfIicDH81Qp9FwRQ", 
-                "/files/91c5f9d32a4bc70638c4e4f50473e0dd/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyM30.XbakeQ._xBfY3JZPW59sk4ejv1ioGyTHQM"
-            ], 
-            "Hint": "", 
-            "ID": 18, 
-            "Points": 61
-        }, 
-        "RSA goes skrrrahh": {
-            "Description": "Pls make it quick, boom\r\n\r\nauthor : deomkicer", 
-            "Files": [
-                "/files/88a7e8e283379338de9d3412f3e9b2de/enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyOH0.XbakeQ.gUonQKI7Bi5bHqoxDiLCzXE7QiY", 
-                "/files/f158edfadf7f4000aa9f9df3cfeae960/rsa-goes-skrrrahh.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyOX0.XbakeQ.zirLjSC4__nMmtgosyisgFZ0AdA"
-            ], 
-            "Hint": "", 
-            "ID": 2, 
-            "Points": 85
-        }, 
-        "Shuffler": {
-            "Description": "Submit flag dengan format `codepwnda{...}`\r\n\r\nauthor : deomkicer", 
-            "Files": [
-                "/files/88de287ff4e0edef25d9485db48ae817/chall.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyMH0.XbakeQ.RLKwS8DuWxPHzqBoOV5Kov4EyFY", 
-                "/files/43306967b3862db3ac4696b20d855550/ciphertext.txt?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyMX0.XbakeQ.-ksCw1ijsppMTziEYb0SQ5xPTFw"
-            ], 
-            "Hint": "", 
-            "ID": 17, 
-            "Points": 35
-        }, 
-        "chainfunc": {
-            "Description": "Hola cryptanalysis , we proudly announce our new cryptosystem chain-func, ahh wait ...  \r\n\r\nauthor : vidner", 
-            "Files": [
-                "/files/f18bef254d71473620fddfbdb2eb21ca/source.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozMX0.XbakeQ.UsNYjDp-vOCaIpaFwWIFYbDx-hg", 
-                "/files/e1876abc518b8f1180ce2308407e6ef9/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozMn0.XbakeQ.Ed1AGQReROwRS731KqcDb-r0Co0"
-            ], 
-            "Hint": "", 
-            "ID": 20, 
-            "Points": 94
-        }
+    "data": {
+        "Crypto": [
+            {
+                "category": "Crypto", 
+                "description": "Wait a minute... I see something unusual\r\n\r\nauthor : deomkicer", 
+                "files": [
+                    "/files/1e56e441598228566c72019605b9be1b/babyrsa.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozfQ.Xf-LVA.qRNnkbwNPX-KmFdl5BRDaB8EoNA", 
+                    "/files/f1afdca0436de460a4384d12718034fe/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo0Mn0.Xf-LVA.QvI-h1rFKP14rfkGnppSYxpT41s"
+                ], 
+                "hints": [], 
+                "id": 1, 
+                "name": "BabyRSA", 
+                "points": 69, 
+                "solves": 23
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "Pls make it quick, boom\r\n\r\nauthor : deomkicer", 
+                "files": [
+                    "/files/88a7e8e283379338de9d3412f3e9b2de/enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyOH0.Xf-LUg.H2PrlCIWblAGkMNJVTm1Qi5-2bE", 
+                    "/files/f158edfadf7f4000aa9f9df3cfeae960/rsa-goes-skrrrahh.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyOX0.Xf-LUg.qe7W-fgKd6vh2W8ixFQxaT9oZ7k"
+                ], 
+                "hints": [], 
+                "id": 2, 
+                "name": "RSA goes skrrrahh", 
+                "points": 85, 
+                "solves": 17
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "author : deomkicer", 
+                "files": [
+                    "/files/00aa9323846462f2de910eda5ff3cc0c/chall.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxNn0.Xf-LVA.4FtApATvgf6db61A4HpnS67QQgg", 
+                    "/files/7304021db1e43d4c05b2498e6a38005d/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxN30.Xf-LVA.cIex-7867zelud0CRlRzO732bFM"
+                ], 
+                "hints": [], 
+                "id": 14, 
+                "name": "Little Bit", 
+                "points": 53, 
+                "solves": 19
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "author : deomkicer", 
+                "files": [
+                    "/files/9785380c7df08ed01a6cb17325f4e45d/chall.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxOH0.Xf-LVA.Rbl_3peWj8o-oqhCZvbq4ZeizcY", 
+                    "/files/863b930c053102839d3a9e91059aacf0/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxOX0.Xf-LVA.cnDujXZtlsGzxxIZYEyQEgjNOUY"
+                ], 
+                "hints": [], 
+                "id": 15, 
+                "name": "Do While", 
+                "points": 47, 
+                "solves": 29
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "Sebuah pesan yang mewakili suara rakyat\r\n\r\nauthor : deomkicer", 
+                "files": [
+                    "/files/7cec73c16f21192876091318dc20e9cf/chall.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyMn0.Xf-LVA.bny5_YCl1PfzFDMZ0VpAx9D981E", 
+                    "/files/91c5f9d32a4bc70638c4e4f50473e0dd/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyM30.Xf-LVA.-LmYukB8WsoHZlX8NsXm3oyjCTw"
+                ], 
+                "hints": [], 
+                "id": 18, 
+                "name": "Mxor", 
+                "points": 61, 
+                "solves": 20
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "Submit flag dengan format `codepwnda{...}`\r\n\r\nauthor : deomkicer", 
+                "files": [
+                    "/files/88de287ff4e0edef25d9485db48ae817/chall.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyMH0.Xf-LVA.f29ZPyo1lWnnJOSQzj5-_onfUiQ", 
+                    "/files/43306967b3862db3ac4696b20d855550/ciphertext.txt?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyMX0.Xf-LVA.pwdEpP0GalKbsufH1LKflNg1E9Y"
+                ], 
+                "hints": [], 
+                "id": 17, 
+                "name": "Shuffler", 
+                "points": 35, 
+                "solves": 74
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "Hola cryptanalysis , we proudly announce our new cryptosystem chain-func, ahh wait ...  \r\n\r\nauthor : vidner", 
+                "files": [
+                    "/files/f18bef254d71473620fddfbdb2eb21ca/source.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozMX0.Xf-LVA.Hd-AbCU9jl_fctT2wXjbiulL060", 
+                    "/files/e1876abc518b8f1180ce2308407e6ef9/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozMn0.Xf-LVA.E6cUYQxJR-4USF-EeIwxBj_r-QA"
+                ], 
+                "hints": [], 
+                "id": 20, 
+                "name": "chainfunc", 
+                "points": 94, 
+                "solves": 5
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "Di tahun 2099, CPU komputer berkembang pesat dibandingkan dengan 100 tahun yang lalu. Seperti komputer milik Friska, komputer miliknya dapat melakukan enkripsi dengan komputasi besar dalam waktu singkat. Bisakah kamu melakukan dekripsi tanpa menggunakan super-computer?\r\n\r\nauthor : deomkicer", 
+                "files": [
+                    "/files/dff7506ad6bd4bc1dfb1b1ba49c8106e/output?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo0NH0.Xf-LVA.N1kng3mErJ42q6m0ZDyf0Bw2604", 
+                    "/files/f9f66f07dc3996c79d882ee3a6e28ddb/release.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo0NX0.Xf-LVA.-v2N9w20yM_Uo-HnEVTJ3UTU4J4"
+                ], 
+                "hints": [], 
+                "id": 33, 
+                "name": "Living in 2099", 
+                "points": 77, 
+                "solves": 11
+            }
+        ], 
+        "Forenshit": [
+            {
+                "category": "Forenshit", 
+                "description": "Mari cari tahu pesan di balik angka 7\r\n\r\ns.id/readmepls\r\n\r\nauthor : deomkicer", 
+                "files": [], 
+                "hints": [], 
+                "id": 16, 
+                "name": "Readme Pls", 
+                "points": 75, 
+                "solves": 21
+            }, 
+            {
+                "category": "Forenshit", 
+                "description": "1 pixel? No problem.. \r\n\r\nauthor : deomkicer", 
+                "files": [
+                    "/files/b3277bee1fa938e7db1ac88e39afc79b/darkpixel.png?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozOX0.Xf-LVA._PrGWDVVtp3W56muMQLNXnQaQio"
+                ], 
+                "hints": [
+                    "I think this image has 640000 pixels"
+                ], 
+                "id": 30, 
+                "name": "Dark Pixel", 
+                "points": 36, 
+                "solves": 11
+            }
+        ], 
+        "Pwn": [
+            {
+                "category": "Pwn", 
+                "description": "```\r\nnc not.codepwnda.id 31337\r\n```\r\nhttps://drive.google.com/file/d/181bz6KFWqsjS3VPzX7TonGCdwh6uGgRa/view?usp=sharing\r\n\r\nauthor : circleous", 
+                "files": [], 
+                "hints": [], 
+                "id": 4, 
+                "name": "quickie", 
+                "points": 137, 
+                "solves": 0
+            }, 
+            {
+                "category": "Pwn", 
+                "description": "```\r\nnc not.codepwnda.id 30002\r\n```\r\nauthor : alfakatsuki", 
+                "files": [
+                    "/files/0e9d4a6f7263c33b5237fbffdd9ebb4e/kudanil_lsi2?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozM30.Xf-LVA.Aw39-Z_-6QBECaymL1yKVI86huQ"
+                ], 
+                "hints": [], 
+                "id": 5, 
+                "name": "Kudanil LSI 2", 
+                "points": 101, 
+                "solves": 1
+            }, 
+            {
+                "category": "Pwn", 
+                "description": "```\r\nnc not.codepwnda.id 30001\r\n```\r\nlibc.so md5sum 50390b2ae8aaa73c47745040f54e602f\r\n\r\nauthor : circleous", 
+                "files": [
+                    "/files/390f459074a1dde37afa209cd91216fe/vmxck?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo0MH0.Xf-LUw.Nt7GwrMD29xQEmt4yvxdQ1FAfsM"
+                ], 
+                "hints": [], 
+                "id": 6, 
+                "name": "vmxck", 
+                "points": 99, 
+                "solves": 2
+            }, 
+            {
+                "category": "Pwn", 
+                "description": "```nc not.codepwnda.id 30666```\r\n\r\nauthor: xxxnarutoxxx", 
+                "files": [
+                    "/files/556e2b1987029e420db09b7a5e23f53d/cin?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozNX0.Xf-LVA.wzGGR1XYLjEedtlkA3LcgS7UPHQ"
+                ], 
+                "hints": [], 
+                "id": 27, 
+                "name": "cin", 
+                "points": 42, 
+                "solves": 22
+            }, 
+            {
+                "category": "Pwn", 
+                "description": "```nc not.codepwnda.id 30667```\r\n\r\nauthor: xxxnarutoxxx", 
+                "files": [
+                    "/files/222feb81dcae2fce42acda004768fdd7/chall?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo0MX0.Xf-LVA.yze6ATtr8McmsH8TuwQ72_dE_hg"
+                ], 
+                "hints": [], 
+                "id": 31, 
+                "name": "Linked List", 
+                "points": 50, 
+                "solves": 12
+            }
+        ], 
+        "Rev": [
+            {
+                "category": "Rev", 
+                "description": "Go-stripper , bring the fun to ur terminal\r\n\r\ns.id/goper\r\n\r\nauthor : vidner", 
+                "files": [
+                    "/files/ce465794fc099f4a23d2a956612ee192/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo5fQ.Xf-LVA.mH4fcQbYVrzzmeLiPc6rd9KK1PE"
+                ], 
+                "hints": [], 
+                "id": 3, 
+                "name": "goper", 
+                "points": 104, 
+                "solves": 0
+            }, 
+            {
+                "category": "Rev", 
+                "description": "baby should be easy \r\n\r\nauthor : vidner", 
+                "files": [
+                    "/files/7c889fed8eb84d80cb0e262cf46e9ed6/babyrev?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxMX0.Xf-LUw.Y-YlSfmcY_Nd_kSH9g-ubOnOlp0"
+                ], 
+                "hints": [], 
+                "id": 8, 
+                "name": "babyrev", 
+                "points": 69, 
+                "solves": 12
+            }, 
+            {
+                "category": "Rev", 
+                "description": "brody i need ur help\r\n\r\nauthor : vidner", 
+                "files": [
+                    "/files/9ec4a424f78062a58557b1280480f57c/brodyrev?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxMn0.Xf-LUw.aE82re4vod0v9bZRLpcfbrhN2rc"
+                ], 
+                "hints": [], 
+                "id": 9, 
+                "name": "brodyrev", 
+                "points": 79, 
+                "solves": 7
+            }, 
+            {
+                "category": "Rev", 
+                "description": "sissy peasy lemon squeezy\r\n\r\nauthor : vidner", 
+                "files": [
+                    "/files/bde1a78b6b4ba520fafb2d6aa1b0bc34/chall.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyNH0.Xf-LUw.rZpd3U66tG5XqTQBQsLiE4P7_D0"
+                ], 
+                "hints": [], 
+                "id": 10, 
+                "name": "sissyrev", 
+                "points": 74, 
+                "solves": 5
+            }, 
+            {
+                "category": "Rev", 
+                "description": "Can you figure out what the serial to this program is?\r\n\r\nauthor : vidner", 
+                "files": [
+                    "/files/23cabc85d4cfc84a6824be225746edfa/chall.pyc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxNH0.Xf-LUw.XaIdiywDe6r7Zp6pNMlprE3lUO4"
+                ], 
+                "hints": [], 
+                "id": 11, 
+                "name": "serial bomber", 
+                "points": 51, 
+                "solves": 19
+            }, 
+            {
+                "category": "Rev", 
+                "description": "Take me back to basic\r\n\r\nauthor : deomkicer", 
+                "files": [
+                    "/files/f846121cdea13ef2039a8fd84dbbbe92/back2basic?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxNX0.Xf-LVA.8gn1pS-GxI7nxJWjs1l2txsoy58"
+                ], 
+                "hints": [], 
+                "id": 13, 
+                "name": "back2basic", 
+                "points": 109, 
+                "solves": 7
+            }, 
+            {
+                "category": "Rev", 
+                "description": "Somewhere deep down in my heart... I still love you! , hwaaaaaaaaaaaaa .\r\n\r\nauthor : vidner", 
+                "files": [
+                    "/files/209be2ba19111f3f2714cb320f4cf293/source.pyc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozMH0.Xf-LVA.7CUCBz4EBVmg3gExR9ENicceBoE"
+                ], 
+                "hints": [], 
+                "id": 19, 
+                "name": "DeeP", 
+                "points": 49, 
+                "solves": 19
+            }, 
+            {
+                "category": "Rev", 
+                "description": "it's somewhere around 60\u2019s and 70\u2019s.\r\n\r\nauthor : vidner", 
+                "files": [
+                    "/files/3c590e52b0eb24f0cff2c99e5acfca61/randsomewhere?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozNn0.Xf-LVA.4BKV5rkNp9fCuHjizaTmJW0IQ5E", 
+                    "/files/268c4a3cb9ece21dcdb5fcc4988d04e6/flag.pdf.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozN30.Xf-LVA.a5Nso2lWHXI-HAt8EmO0lVzjWSY"
+                ], 
+                "hints": [], 
+                "id": 28, 
+                "name": "randsomewhere", 
+                "points": 99, 
+                "solves": 2
+            }, 
+            {
+                "category": "Rev", 
+                "description": "author: circleous", 
+                "files": [
+                    "/files/b5a4dd8bee68e31be1225cca432d1cf5/boot2root.rom?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozOH0.Xf-LVA.KDK6xPymQ8P3eCoV-YTqIR-SptE"
+                ], 
+                "hints": [], 
+                "id": 29, 
+                "name": "boot2root", 
+                "points": 79, 
+                "solves": 1
+            }
+        ], 
+        "Web": [
+            {
+                "category": "Web", 
+                "description": "Punten gan lagi belajar node js\r\n\r\nauthor: xxxnarutoxxx\r\n\r\nhttp://not.codepwnda.id:30069/", 
+                "files": [], 
+                "hints": [], 
+                "id": 12, 
+                "name": "Hello JS", 
+                "points": 35, 
+                "solves": 43
+            }, 
+            {
+                "category": "Web", 
+                "description": "Hello JS v2.0 bug yang kemaren udah fixed gan, jgn di hack lg plz.\r\n\r\nnot.codepwnda.id:30169\r\n\r\nauthor: xxxnarutoxxx", 
+                "files": [], 
+                "hints": [], 
+                "id": 21, 
+                "name": "Hello JS v2.0", 
+                "points": 40, 
+                "solves": 31
+            }, 
+            {
+                "category": "Web", 
+                "description": "Sekarang ane belajar I/O pake fs gan. Btw bug kemarin udh gw fix ya semoga gaada heking lagi:((\r\n\r\nhttp://not.codepwnda.id:30269/\r\n\r\nauthor: xxxnarutoxxx", 
+                "files": [], 
+                "hints": [], 
+                "id": 22, 
+                "name": "Hello JS v3.0", 
+                "points": 69, 
+                "solves": 13
+            }, 
+            {
+                "category": "Web", 
+                "description": "[not.codepwnda.id:9669](http://not.codepwnda.id:9669)\r\n\r\nauthor: circleous", 
+                "files": [], 
+                "hints": [], 
+                "id": 23, 
+                "name": "guess the flag", 
+                "points": 22, 
+                "solves": 56
+            }, 
+            {
+                "category": "Web", 
+                "description": "codepwnda sedang mencari dukun-dukun berbakat yang dapat menerjemahkan cipher tanpa key\r\n\r\nhttp://not.codepwnda.id:30369\r\n\r\nauthor: xxxnarutoxxx", 
+                "files": [
+                    "/files/0cd30ed821f839a16e3f9fb4553f0511/app.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozNH0.Xf-LVA.Q8lcDHmFif6ARfIc9j-h4jtRveg"
+                ], 
+                "hints": [], 
+                "id": 24, 
+                "name": "Master Dukun", 
+                "points": 76, 
+                "solves": 10
+            }, 
+            {
+                "category": "Web", 
+                "description": "Ayo mengenal naruto lebih jauh\r\n\r\nhttp://not.codepwnda.id:30469\r\n\r\nauthor: xxxnarutoxxx", 
+                "files": [], 
+                "hints": [], 
+                "id": 25, 
+                "name": "Naruto Wiki", 
+                "points": 20, 
+                "solves": 91
+            }, 
+            {
+                "category": "Web", 
+                "description": "[not.codepwnda.id:9669](http://not.codepwnda.id:9669/)\r\n\r\nauthor: circleous", 
+                "files": [], 
+                "hints": [], 
+                "id": 26, 
+                "name": "guess the flag 2", 
+                "points": 50, 
+                "solves": 16
+            }
+        ]
     }, 
-    "Forenshit": {
-        "Dark Pixel": {
-            "Description": "1 pixel? No problem.. \r\n\r\nauthor : deomkicer", 
-            "Files": [
-                "/files/b3277bee1fa938e7db1ac88e39afc79b/darkpixel.png?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozOX0.XbakeQ.EAxc1HJcDyYyxCcD1IpQKcAjlzw"
-            ], 
-            "Hint": "", 
-            "ID": 30, 
-            "Points": 36
-        }, 
-        "Readme Pls": {
-            "Description": "Mari cari tahu pesan di balik angka 7\r\n\r\ns.id/readmepls\r\n\r\nauthor : deomkicer", 
-            "Files": [], 
-            "Hint": "", 
-            "ID": 16, 
-            "Points": 75
-        }
-    }, 
-    "Pwn": {
-        "Kudanil LSI 2": {
-            "Description": "```\r\nnc not.codepwnda.id 30002\r\n```\r\nauthor : alfakatsuki", 
-            "Files": [
-                "/files/0e9d4a6f7263c33b5237fbffdd9ebb4e/kudanil_lsi2?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozM30.XbakeQ.stjfwm9sjvtLSLoTj18j_HbcYl0"
-            ], 
-            "Hint": "", 
-            "ID": 5, 
-            "Points": 101
-        }, 
-        "Linked List": {
-            "Description": "```nc not.codepwnda.id 30667```\r\n\r\nauthor: xxxnarutoxxx", 
-            "Files": [
-                "/files/222feb81dcae2fce42acda004768fdd7/chall?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo0MX0.XbakeQ.u--CPBQdSqYH_QGj7DQctvTnqbI"
-            ], 
-            "Hint": "", 
-            "ID": 31, 
-            "Points": 50
-        }, 
-        "cin": {
-            "Description": "```nc not.codepwnda.id 30666```\r\n\r\nauthor: xxxnarutoxxx", 
-            "Files": [
-                "/files/556e2b1987029e420db09b7a5e23f53d/cin?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozNX0.XbakeQ.l65UPaSf-w9xzPDMONbFKRSS3g4"
-            ], 
-            "Hint": "", 
-            "ID": 27, 
-            "Points": 42
-        }, 
-        "quickie": {
-            "Description": "```\r\nnc not.codepwnda.id 31337\r\n```\r\nhttps://drive.google.com/file/d/181bz6KFWqsjS3VPzX7TonGCdwh6uGgRa/view?usp=sharing\r\n\r\nauthor : circleous", 
-            "Files": [], 
-            "Hint": "", 
-            "ID": 4, 
-            "Points": 137
-        }, 
-        "vmxck": {
-            "Description": "```\r\nnc not.codepwnda.id 30001\r\n```\r\nlibc.so md5sum 50390b2ae8aaa73c47745040f54e602f\r\n\r\nauthor : circleous", 
-            "Files": [
-                "/files/390f459074a1dde37afa209cd91216fe/vmxck?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo0MH0.XbakeQ.2pgnAlpASVZEirXuLYzw2_2bAWg"
-            ], 
-            "Hint": "", 
-            "ID": 6, 
-            "Points": 99
-        }
-    }, 
-    "Rev": {
-        "DeeP": {
-            "Description": "Somewhere deep down in my heart... I still love you! , hwaaaaaaaaaaaaa .\r\n\r\nauthor : vidner", 
-            "Files": [
-                "/files/209be2ba19111f3f2714cb320f4cf293/source.pyc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozMH0.Xbakeg.yuy5M9IsLISpdPdXqmAodVq0DG8"
-            ], 
-            "Hint": "", 
-            "ID": 19, 
-            "Points": 49
-        }, 
-        "babyrev": {
-            "Description": "baby should be easy \r\n\r\nauthor : vidner", 
-            "Files": [
-                "/files/7c889fed8eb84d80cb0e262cf46e9ed6/babyrev?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxMX0.Xbakeg.2j8GMQRviuQWMbEqwQI0_3f9GX0"
-            ], 
-            "Hint": "", 
-            "ID": 8, 
-            "Points": 69
-        }, 
-        "back2basic": {
-            "Description": "Take me back to basic\r\n\r\nauthor : deomkicer", 
-            "Files": [
-                "/files/f846121cdea13ef2039a8fd84dbbbe92/back2basic?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxNX0.Xbakeg.CoBfQLNvzRrcyJLera9_rm4KKGU"
-            ], 
-            "Hint": "", 
-            "ID": 13, 
-            "Points": 109
-        }, 
-        "boot2root": {
-            "Description": "author: circleous", 
-            "Files": [
-                "/files/b5a4dd8bee68e31be1225cca432d1cf5/boot2root.rom?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozOH0.Xbakeg.saflu0sjfgfKp4MCPNxBec55nPg"
-            ], 
-            "Hint": "", 
-            "ID": 29, 
-            "Points": 79
-        }, 
-        "brodyrev": {
-            "Description": "brody i need ur help\r\n\r\nauthor : vidner", 
-            "Files": [
-                "/files/9ec4a424f78062a58557b1280480f57c/brodyrev?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxMn0.Xbakeg.MkD0NoCFPrhGXNoxkCvrjEEqc0g"
-            ], 
-            "Hint": "", 
-            "ID": 9, 
-            "Points": 79
-        }, 
-        "goper": {
-            "Description": "Go-stripper , bring the fun to ur terminal\r\n\r\ns.id/goper\r\n\r\nauthor : vidner", 
-            "Files": [
-                "/files/ce465794fc099f4a23d2a956612ee192/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjo5fQ.Xbakeg.SB4plngqQMFhH7Ham3cT-9lF-Es"
-            ], 
-            "Hint": "", 
-            "ID": 3, 
-            "Points": 104
-        }, 
-        "randsomewhere": {
-            "Description": "it's somewhere around 60\u2019s and 70\u2019s.\r\n\r\nauthor : vidner", 
-            "Files": [
-                "/files/3c590e52b0eb24f0cff2c99e5acfca61/randsomewhere?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozNn0.Xbakeg.6Wj4ipCtrn2knT1q0ssXa1B3cGE", 
-                "/files/268c4a3cb9ece21dcdb5fcc4988d04e6/flag.pdf.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozN30.Xbakeg.HM8Bzic02ckGZP3WaicirP8cmRE"
-            ], 
-            "Hint": "", 
-            "ID": 28, 
-            "Points": 99
-        }, 
-        "serial bomber": {
-            "Description": "Can you figure out what the serial to this program is?\r\n\r\nauthor : vidner", 
-            "Files": [
-                "/files/23cabc85d4cfc84a6824be225746edfa/chall.pyc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoxNH0.Xbakeg.zxE6eTo14eISsVGASv9v1m3P0ng"
-            ], 
-            "Hint": "", 
-            "ID": 11, 
-            "Points": 51
-        }, 
-        "sissyrev": {
-            "Description": "sissy peasy lemon squeezy\r\n\r\nauthor : vidner", 
-            "Files": [
-                "/files/bde1a78b6b4ba520fafb2d6aa1b0bc34/chall.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjoyNH0.Xbakeg.hoGAWaITbNo3YLOfhSmr3jqcF4I"
-            ], 
-            "Hint": "", 
-            "ID": 10, 
-            "Points": 74
-        }
-    }, 
-    "Web": {
-        "Hello JS": {
-            "Description": "Punten gan lagi belajar node js\r\n\r\nauthor: xxxnarutoxxx\r\n\r\nhttp://not.codepwnda.id:30069/", 
-            "Files": [], 
-            "Hint": "", 
-            "ID": 12, 
-            "Points": 35
-        }, 
-        "Hello JS v2.0": {
-            "Description": "Hello JS v2.0 bug yang kemaren udah fixed gan, jgn di hack lg plz.\r\n\r\nnot.codepwnda.id:30169\r\n\r\nauthor: xxxnarutoxxx", 
-            "Files": [], 
-            "Hint": "", 
-            "ID": 21, 
-            "Points": 40
-        }, 
-        "Hello JS v3.0": {
-            "Description": "Sekarang ane belajar I/O pake fs gan. Btw bug kemarin udh gw fix ya semoga gaada heking lagi:((\r\n\r\nhttp://not.codepwnda.id:30269/\r\n\r\nauthor: xxxnarutoxxx", 
-            "Files": [], 
-            "Hint": "", 
-            "ID": 22, 
-            "Points": 69
-        }, 
-        "Master Dukun": {
-            "Description": "codepwnda sedang mencari dukun-dukun berbakat yang dapat menerjemahkan cipher tanpa key\r\n\r\nhttp://not.codepwnda.id:30369\r\n\r\nauthor: xxxnarutoxxx", 
-            "Files": [
-                "/files/0cd30ed821f839a16e3f9fb4553f0511/app.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo3LCJmaWxlX2lkIjozNH0.Xbakeg.oj-ZpnAecfwoJtPRFNR77axayFo"
-            ], 
-            "Hint": "", 
-            "ID": 24, 
-            "Points": 76
-        }, 
-        "Naruto Wiki": {
-            "Description": "Ayo mengenal naruto lebih jauh\r\n\r\nhttp://not.codepwnda.id:30469\r\n\r\nauthor: xxxnarutoxxx", 
-            "Files": [], 
-            "Hint": "", 
-            "ID": 25, 
-            "Points": 20
-        }, 
-        "guess the flag": {
-            "Description": "[not.codepwnda.id:9669](http://not.codepwnda.id:9669)\r\n\r\nauthor: circleous", 
-            "Files": [], 
-            "Hint": "", 
-            "ID": 23, 
-            "Points": 22
-        }, 
-        "guess the flag 2": {
-            "Description": "[not.codepwnda.id:9669](http://not.codepwnda.id:9669/)\r\n\r\nauthor: circleous", 
-            "Files": [], 
-            "Hint": "", 
-            "ID": 26, 
-            "Points": 50
-        }
-    }
+    "url": "https://ctf.codepwnda.id"
 }

@@ -1,4 +1,0 @@
-Description:
-author: circleous
-
-Hint:

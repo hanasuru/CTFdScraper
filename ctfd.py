@@ -19,7 +19,7 @@ class CTFdScrape(object):
 
     def __init__(self, team, passwd, url, path):
         self.auth    = dict(name=team, password=passwd)
-        self.url     = url
+        self.url     = url.strip('/')
         self.dlSize  = 0.0
         self.chcount = 0
         self.chfiles = 0
@@ -31,7 +31,7 @@ class CTFdScrape(object):
             if not self.__login():
                 sp.fail(' Login Failed :(')
                 sys.exit()
-            sp.succeed(' Login Succees')
+            sp.succeed(' Login Success')
             self.__manageVersion()
         
         # Create Folder
@@ -58,6 +58,7 @@ class CTFdScrape(object):
         # Other
         self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/.*\.*\w*)')
         self.f       = []
+        self.travers = True
 
     def __login(self):
         resp  = self.ses.get(self.lg_url)
@@ -77,6 +78,7 @@ class CTFdScrape(object):
             self.version = 'v.1.2.0'
             self.ch_url  = self.url + '/chals'
             self.hi_url  = self.url + '/hints'
+            self.sol_url = self.ch_url + '/solves'
 
     def __getHintById(self, id):
         resp = self.ses.get('%s/%s' % (self.hi_url,id)).json()
@@ -89,17 +91,37 @@ class CTFdScrape(object):
                 if self.version != 'v.1.2.0':
                     res.append(self.__getHintById(hint['id']))
                 else:
-                    res.append(hint['hint'].encode('utf-8'))
+                    res.append(hint['hint'])
         return res
+
+    def __getSolves(self, data):
+        if self.version != 'v.1.2.0':
+            return data['solves']
+        else:
+            try:
+                return self.solves[str(data['id'])]
+            except:
+                self.solves = self.ses.get(self.sol_url).json()
+                return self.solves[str(data['id'])]
+
+    def __getChallById(self, id):
+        resp = self.ses.get('%s/%s' % (self.ch_url,id)).json()
+        return self.__parseData(resp['data'])
 
     def __getChall(self, q):
         while not q.empty():
             id = q.get()
             if self.version != 'v.1.2.0':
-                resp = self.ses.get('%s/%s' % (self.ch_url,id)).json()
-                self.c[id] = self.__parseData(resp['data'])
+                self.c[id] = self.__getChallById(id)
             else:
-                self.c[id] = self.__parseData(self.c[id])
+                try:
+                  if self.traverseable:
+                    self.c[id] = self.__getChallById(id)
+                  else:
+                    self.c[id] = self.__parseData(self.c[id])
+                except:
+                  self.traverseable = False
+                  self.c[id] = self.__parseData(self.c[id])
             q.task_done()
         return True
 
@@ -111,6 +133,7 @@ class CTFdScrape(object):
             'description' : data['description'],
             'files'       : data['files'],
             'category'    : data['category'],
+            'solves'      : self.__getSolves(data),
             'hints'       : self.__getHints(data['hints'])
         }
         # print(json.dumps(entry, sort_keys=True, indent=4))
@@ -150,17 +173,20 @@ class CTFdScrape(object):
                 desc  = ns.description.encode('utf-8').strip()
                 name  = ns.name.encode('utf-8').strip()
                 cat   = ns.category.encode('utf-8').strip()
-                hint  = '\n>'.join(ns.hints).encode('utf-8')
+                solve = str(ns.solves).encode('utf-8').strip()
+                hint  = '\n* '.join(ns.hints).encode('utf-8')
                 cont  = '# %s [%s pts]\n\n' % (name, ns.points)
-                cont += '## Category\n%s\n\n' % (cat)
+                cont += '**Category:** %s\n' % (cat)
+                cont += '**Solves:** %s\n\n' % (solve)
                 cont += '## Description\n>%s\n\n' % (desc)
-                cont += '### Hint\n>%s\n\n' % (hint)
-                cont += '## Solution\n\n\n'
+                cont += '**Hint**\n%s\n\n' % (hint)
+                cont += '## Solution\n\n'
                 cont += '### Flag\n\n'
 
                 if sys.version_info.major == 2:
                     f.write(cont)
                 else:
+                    cont = re.sub(r"(b\')|\'",'',cont)
                     f.write(bytes(cont.encode()))
 
             self.f += [(path, self.regex.search(i).group(2)) for i in ns.files]
