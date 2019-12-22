@@ -179,7 +179,7 @@ class CTFdScrape(object):
                 cont += '**Category:** %s\n' % (cat)
                 cont += '**Solves:** %s\n\n' % (solve)
                 cont += '## Description\n>%s\n\n' % (desc)
-                cont += '**Hint**\n%s\n\n' % (hint)
+                cont += '**Hint**\n* %s\n\n' % (hint)
                 cont += '## Solution\n\n'
                 cont += '### Flag\n\n'
 

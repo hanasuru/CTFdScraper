@@ -9,7 +9,7 @@
 author : deomkicer
 
 **Hint**
-I think this image has 640000 pixels
+* I think this image has 640000 pixels
 
 ## Solution
 

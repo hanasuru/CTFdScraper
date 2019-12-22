@@ -11,7 +11,7 @@ s.id/goper
 author : vidner
 
 **Hint**
-
+* 
 
 ## Solution
 
