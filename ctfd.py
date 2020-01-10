@@ -4,9 +4,9 @@ from threading import Thread, Lock
 from requests import session
 from argparse import Namespace
 from bs4 import BeautifulSoup
-import logging
-import sys, os
+import logging as log
 import requests, json
+import sys, os
 import re, time
 
 try:
@@ -22,7 +22,7 @@ class CTFdScrape(object):
         self.url     = url.strip('/')
         self.dlSize  = 0.0
         self.chcount = 0
-        self.chfiles = 0
+        self.files   = []
         self.starTim = time.time()
         self.__setEnVar()
 
@@ -57,19 +57,22 @@ class CTFdScrape(object):
         
         # Other
         self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/.*\.*\w*)')
-        self.f       = []
         self.travers = True
 
+        #Logging
+        log.basicConfig(filename='error.log', level=log.INFO)
+
     def __login(self):
-        resp  = self.ses.get(self.lg_url)
-        soup  = BeautifulSoup(resp.text,'lxml')
-        nonce = soup.find('input', {'name':'nonce'}).get('value')
-
-        self.auth['nonce'] = nonce
-        self.title = soup.title.string
-
-        resp  = self.ses.post(self.lg_url, data=self.auth)
-        return 'incorrect' not in resp.text
+        try:
+          resp  = self.ses.get(self.lg_url)
+          soup  = BeautifulSoup(resp.text,'lxml')
+          nonce = soup.find('input', {'name':'nonce'}).get('value')
+          self.auth['nonce'] = nonce
+          self.title = soup.title.string
+          resp  = self.ses.post(self.lg_url, data=self.auth)
+          return 'incorrect' not in resp.text
+        except Exception as e:
+          log.exception(str(e) + '\n')
 
     def __manageVersion(self):
         resp = self.ses.get(self.ch_url)
@@ -105,28 +108,34 @@ class CTFdScrape(object):
                 return self.solves[str(data['id'])]
 
     def __getChallById(self, id):
-        resp = self.ses.get('%s/%s' % (self.ch_url,id)).json()
-        return self.__parseData(resp['data'])
+        try:
+          resp = self.ses.get('%s/%s' % (self.ch_url,id)).json()
+          return self.__parseData(resp['data'])
+        except Exception as e:
+          log.exception(str(e) + '\n') 
 
     def __getChall(self, q):
         while not q.empty():
             id = q.get()
             if self.version != 'v.1.2.0':
-                self.c[id] = self.__getChallById(id)
+                self.chals[id] = self.__getChallById(id)
             else:
                 try:
                   if self.traverseable:
-                    self.c[id] = self.__getChallById(id)
+                    self.chals[id] = self.__getChallById(id)
                   else:
-                    self.c[id] = self.__parseData(self.c[id])
+                    self.chals[id] = self.__parseData(self.chals[id])
                 except:
                   self.traverseable = False
-                  self.c[id] = self.__parseData(self.c[id])
+                  self.chals[id] = self.__parseData(self.chals[id])
+
+            self.chals.pop(id) if not self.chals[id] else None
             q.task_done()
         return True
 
     def __parseData(self, data):
-        entry = {
+        if data:
+          entry = {
             'id'          : data['id'],
             'name'        : data['name'],
             'points'      : data['value'],
@@ -135,10 +144,10 @@ class CTFdScrape(object):
             'category'    : data['category'],
             'solves'      : self.__getSolves(data),
             'hints'       : self.__getHints(data['hints'])
-        }
-        # print(json.dumps(entry, sort_keys=True, indent=4))
-        self.chcount += 1
-        return entry
+          }
+          # print(json.dumps(entry, sort_keys=True, indent=4))
+          self.chcount += 1
+          return entry
 
     def __download(self, q):
         while not q.empty():
@@ -152,16 +161,15 @@ class CTFdScrape(object):
                             if chunk:
                                 handle.write(chunk)
                     self.dlSize  += int(resp.headers.get('Content-Length', 0))
-                    self.chfiles += 1
-                except:
-                    pass
+                except Exception as e:
+                    log.exception(str(e) + '\n')
             q.task_done()
 
         return True
         
     def __populate(self, q):
         while not q.empty():
-            vals = self.c[q.get()]
+            vals = self.chals[q.get()]
             ns   = Namespace(**vals)
 
             path = '%s/%s' % (ns.category,ns.name)
@@ -189,8 +197,8 @@ class CTFdScrape(object):
                     cont = re.sub(r"(b\')|\'",'',cont)
                     f.write(bytes(cont.encode()))
 
-            self.f += [(path, self.regex.search(i).group(2)) for i in ns.files]
-            data    = self.entry['data'].get(ns.category, list())
+            self.files += [(path, self.regex.search(i).group(2)) for i in ns.files]
+            data = self.entry['data'].get(ns.category, list())
             if not data:
                 self.entry['data'][ns.category] = data
             data.append(vals)
@@ -216,18 +224,18 @@ class CTFdScrape(object):
 
     def getChallenges(self):
         with Halo(text='\n Collecting challs') as sp:
-            challs  = self.ses.get(self.ch_url).json()[self.keys]
-            challs  = sorted(challs, key=lambda _: _['category']) 
-            self.c  = {ch['id'] : ch for ch in challs}
-            sp.succeed('Collected %s challenges'%(len(self.c)))
+            challs      = self.ses.get(self.ch_url).json()[self.keys]
+            challs      = sorted(challs, key=lambda _: _['category']) 
+            self.chals  = {ch['id'] : ch for ch in challs}
+            sp.succeed('Found %s challenges'%(len(self.chals)))
         return True
 
     def createArchive(self):
         with Halo(text='\n Downloading Assets') as sp:
-            self.__Threader(self.c, self.__getChall,5)
-            self.__Threader(self.c, self.__populate)
-            self.__Threader(self.f, self.__download)
-            sp.succeed('Downloaded {0:} files ({1:.2f} MB)'.format(self.chfiles,self.dlSize/10**6))
+            self.__Threader(self.chals, self.__getChall,1)
+            self.__Threader(self.chals, self.__populate)
+            self.__Threader(self.files, self.__download)
+            sp.succeed('Downloaded {0:} files ({1:.2f} MB)'.format(len(self.files),self.dlSize/10**6))
 
     def review(self):
         print('\n[Summary]')
@@ -257,3 +265,9 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+# TODO
+# Add Scoreboard (Image / CLI?)
+# Add Cloud Dowloader (Dropbox, Mega.nz, Google Drive)
+# Add Markdown for challs hierarchy
+# Add more argument (override files, challs only, force-download,)
