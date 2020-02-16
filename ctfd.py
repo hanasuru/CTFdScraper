@@ -71,7 +71,7 @@ class CTFdScrape(object):
         
         # Other
         self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/.*\.*\w*)')
-        self.escape  = re.compile(r'[\\\/\:\*\?\"\<\>\|]')
+        self.escape  = re.compile(r'[\\\/\:\*\?\"\<\>\|(\s\.)\.]')
         self.travers = True
 
         #Logging
