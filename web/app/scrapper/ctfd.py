@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 from threading import Thread, Lock
 from requests import session
 from argparse import Namespace
@@ -24,6 +24,8 @@ class CTFdScrape(object):
         self.chcount = 0
         self.files   = []
         self.starTim = time.time()
+        self.override  = True
+        self.dl_file   = True
         self.__setEnVar()
 
         if not self.__login():
@@ -53,6 +55,7 @@ class CTFdScrape(object):
         
         # Other
         self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/.*\.*\w*)')
+        self.escape  = re.compile(r'[\\\/\:\*\?\"\<\>\|(\s\.)\.]')
         self.travers = True
 
         #Logging
@@ -134,10 +137,12 @@ class CTFdScrape(object):
           entry = {
             'id'          : data['id'],
             'name'        : data['name'],
+            'name'        : self.escape.sub('', data['name']),
             'points'      : data['value'],
             'description' : data['description'],
             'files'       : data['files'],
             'category'    : data['category'],
+            'category'    : self.escape.sub('', data['category']),
             'solves'      : self.__getSolves(data),
             'hints'       : self.__getHints(data['hints'])
           }
@@ -149,10 +154,11 @@ class CTFdScrape(object):
         while not q.empty():
             path, url = q.get()
             filename  = url.split('/')[-1].split('?')[0]
-            if (not os.path.join(path, filename) or self.override) and not self.dl_file:
+            path = os.path.join(path,filename)
+            if (not os.path.exists(path) or self.override) and not self.dl_file:
                 try:
                     resp = self.ses.get(self.url + '/files/' + url, stream=True)
-                    with open(path + '/' + filename, 'wb') as handle:
+                    with open(path, 'wb') as handle:
                         for chunk in resp.iter_content(chunk_size=512):
                             if chunk:
                                 handle.write(chunk)
@@ -172,7 +178,7 @@ class CTFdScrape(object):
             if not os.path.exists(path):
                 os.makedirs(path)
 
-            with open(os.path.join(path, 'README.md') ,'wb') as f:
+            with open(os.path.join(path, 'README.md'),'wb') as f:
                 desc  = ns.description.encode('utf-8').strip()
                 name  = ns.name.encode('utf-8').strip()
                 cat   = ns.category.encode('utf-8').strip()
@@ -230,6 +236,7 @@ class CTFdScrape(object):
         self.__Threader(self.chals, self.__getChall,1)
         self.__Threader(self.chals, self.__populate)
         self.__Threader(self.files, self.__download)
+        print('Downloaded {0:} files ({1:.2f} MB)'.format(len(self.files),self.dlSize/10**6))
         # sp.succeed('Downloaded {0:} files ({1:.2f} MB)'.format(len(self.files),self.dlSize/10**6))
 
     def review(self):

@@ -1,20 +1,20 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, send_file
 from app.scrapper.ctfd import CTFdScrape
 from app.utils.handler import restExceptionHandler
 from app.utils.handler import responseHandler
 from app.utils.enum import HTTPStatus
 import os
+import shutil
 
 main = Blueprint('scrapper', __name__)
 
 @main.route("/", methods=['POST'])
 def scrap():
-  json_request = request.json
   try:
     scrapper = CTFdScrape(
-      json_request['user'],
-      json_request['password'],
-      json_request['url'],
+      request.form['user'],
+      request.form['password'],
+      request.form['url'],
       os.path.join("output", "")
     )
     scrapper.getChallenges()
@@ -23,8 +23,7 @@ def scrap():
   except Exception as e:
     return restExceptionHandler(e)
 
-  return responseHandler(
-    httpStatus = HTTPStatus.OK,
-    success = True,
-    message = "Berhasil"
-    )
+  destination = os.path.join('..', scrapper.title)
+  shutil.make_archive(destination, "zip", scrapper.path)
+
+  return send_file(scrapper.path + '.zip', as_attachment=True)

@@ -155,11 +155,11 @@ class CTFdScrape(object):
         if data:
           entry = {
             'id'          : data['id'],
-            'name'        : self.escape('', data['name']),
+            'name'        : self.escape.sub('', data['name']),
             'points'      : data['value'],
             'description' : data['description'],
             'files'       : data['files'],
-            'category'    : self.escape('', data['category']),
+            'category'    : self.escape.sub('', data['category']),
             'solves'      : self.__getSolves(data),
             'hints'       : self.__getHints(data['hints'])
           }
