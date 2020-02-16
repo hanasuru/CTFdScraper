@@ -170,7 +170,7 @@ class CTFdScrape(object):
         while not q.empty():
             path, url = q.get()
             filename  = url.split('/')[-1].split('?')[0]
-            if (not os.path.exists(path + '/' + filename) or self.override) and not self.dl_file:
+            if (not os.path.join(path, filename) or self.override) and not self.dl_file:
                 try:
                     resp = self.ses.get(self.url + '/files/' + url, stream=True)
                     with open(path + '/' + filename, 'wb') as handle:
@@ -193,7 +193,7 @@ class CTFdScrape(object):
             if not os.path.exists(path):
                 os.makedirs(path)
 
-            with open('%s/README.md' % (path),'wb') as f:
+            with open(os.path.join(path, 'README.md') ,'wb') as f:
                 desc  = ns.description.encode('utf-8').strip()
                 name  = ns.name.encode('utf-8').strip()
                 cat   = ns.category.encode('utf-8').strip()

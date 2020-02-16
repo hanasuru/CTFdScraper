@@ -30,9 +30,11 @@ class CTFdScrape(object):
             raise Exception('Login Failed')
         
         self.__manageVersion()
-        if not os.path.exists(path+self.title):
-            os.makedirs(path+self.title)
-        os.chdir(path+self.title)
+
+        self.path = os.path.join(os.getcwd(), path, self.title)
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+        os.chdir(self.path)
         
     def __setEnVar(self):
         # CTFd params
@@ -147,7 +149,7 @@ class CTFdScrape(object):
         while not q.empty():
             path, url = q.get()
             filename  = url.split('/')[-1].split('?')[0]
-            if not os.path.exists(path + '/' + filename):
+            if (not os.path.join(path, filename) or self.override) and not self.dl_file:
                 try:
                     resp = self.ses.get(self.url + '/files/' + url, stream=True)
                     with open(path + '/' + filename, 'wb') as handle:
@@ -166,12 +168,11 @@ class CTFdScrape(object):
             vals = self.chals[q.get()]
             ns   = Namespace(**vals)
 
-            path = '%s/%s' % (ns.category,ns.name)
-            path = path.replace(' / ','-')
+            path = os.path.join(self.path, ns.category, ns.name)
             if not os.path.exists(path):
                 os.makedirs(path)
 
-            with open('%s/README.md' % (path),'wb') as f:
+            with open(os.path.join(path, 'README.md') ,'wb') as f:
                 desc  = ns.description.encode('utf-8').strip()
                 name  = ns.name.encode('utf-8').strip()
                 cat   = ns.category.encode('utf-8').strip()
