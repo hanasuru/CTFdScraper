@@ -6,3 +6,4 @@ Flask
 flask-sqlalchemy
 wtforms_json
 flask_jwt_extended
+cloudscraper
