@@ -1,10 +1,9 @@
-#!/usr/bin/env python2
-from halo import Halo
-from cloudscraper import create_scraper
+#!/usr/bin/env python
 from threading import Thread, Lock
 from requests import session
-from argparse import Namespace, ArgumentParser
+from argparse import Namespace
 from bs4 import BeautifulSoup
+from flask import jsonify
 import logging as log
 import requests, json
 import sys, os
@@ -17,47 +16,32 @@ except ImportError:
 
 class CTFdScrape(object):
     __userAgent = 'Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36'
-    __urlParse  = re.compile('(?P<scheme>http.*://)?(?P<host>[^:/ ]+):?(?P<port>[0-9]*)')
 
-    def __init__(self, args):
-        self.auth      = dict(name=args.user, password=args.passwd)
-        self.url       = self.__urlParse.search(args.url)
-        self.worker    = args.worker
-        self.scheme    = args.scheme
-        self.override  = args.override
-        self.dl_file   = args.no_download
-        self.starTime  = time.time()
-        self.__setEnVar()        
+    def __init__(self, team, passwd, url, path):
+        self.auth    = dict(name=team, password=passwd)
+        self.url     = url.strip('/')
+        self.dlSize  = 0.0
+        self.chcount = 0
+        self.files   = []
+        self.starTim = time.time()
+        self.override  = True
+        self.dl_file   = True
+        self.__setEnVar()
 
-        # Login Handle
-        with Halo(text='\n Authenticating') as sp:
-            if not self.__login():
-                sp.fail(' Login Failed :(')
-                sys.exit()
-            sp.succeed(' Login Success')
-            self.__manageVersion()
+        if not self.__login():
+            raise Exception('Login Failed')
         
-        # Create Folder
-        self.path = os.path.join(os.getcwd(), args.path, self.title)
+        self.__manageVersion()
+
+        self.path = os.path.join(os.getcwd(), path, self.title)
         if not os.path.exists(self.path):
             os.makedirs(self.path)
         os.chdir(self.path)
-
-    def __bypassCloudflareProtection(self):
-        with Halo(text='Checking for DDOS Protection') as sp:
-            if self.ses.get(self.url, timeout=10).status_code == 503:
-                self.ses = create_scraper()
-                sp.succeed('DDOS Protection Found')
-
+        
     def __setEnVar(self):
         # CTFd params
         self.keys    = 'data'
         self.version = 'v.1.0'
-        self.dlSize  = 0.0
-        self.chcount = 0
-        self.files   = []
-        self.url     = self.url.group() if self.url.group('scheme') else\
-                        '%s://%s' % (self.scheme, self.url.group())
         self.entry   = dict(url=self.url, data={})
        
         # Persistent session
@@ -71,14 +55,11 @@ class CTFdScrape(object):
         
         # Other
         self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/.*\.*\w*)')
-        self.escape  = re.compile(r'[\\\/\:\*\?\"\<\>\|]')
+        self.escape  = re.compile(r'[\\\/\:\*\?\"\<\>\|(\s\.)\.]')
         self.travers = True
 
         #Logging
         log.basicConfig(filename='error.log', level=log.INFO)
-
-        # DDOS protection bypass
-        self.__bypassCloudflareProtection()
 
     def __login(self):
         try:
@@ -155,10 +136,12 @@ class CTFdScrape(object):
         if data:
           entry = {
             'id'          : data['id'],
+            'name'        : data['name'],
             'name'        : self.escape.sub('', data['name']),
             'points'      : data['value'],
             'description' : data['description'],
             'files'       : data['files'],
+            'category'    : data['category'],
             'category'    : self.escape.sub('', data['category']),
             'solves'      : self.__getSolves(data),
             'hints'       : self.__getHints(data['hints'])
@@ -229,11 +212,11 @@ class CTFdScrape(object):
             sp.start('{0:<20}({1:<0})'.format(key, len(val)))
             sp.succeed()
 
-    def __Threader(self, elements, action=None):
+    def __Threader(self, elements, action=None, nodes=3):
         que = queue.Queue()
         [que.put(_) for _ in elements]
 
-        for i in range(self.worker):
+        for i in range(nodes):
             worker = Thread(target=action, args=(que, ))
             worker.setDaemon(True)
             worker.start()
@@ -241,28 +224,25 @@ class CTFdScrape(object):
         del que
 
     def getChallenges(self):
-        with Halo(text='\n Collecting challs') as sp:
-            try:
-                challs      = self.ses.get(self.ch_url).json()[self.keys]
-                challs      = sorted(challs, key=lambda _: _['category']) 
-                self.chals  = {ch['id'] : ch for ch in challs}
-                sp.succeed('Found %s challenges'%(len(self.chals)))
-            except:
-                sp.fail('No challenges found :(')
-                sys.exit()
+        # with Halo(text='\n Collecting challs') as sp:
+        challs      = self.ses.get(self.ch_url).json()[self.keys]
+        challs      = sorted(challs, key=lambda _: _['category']) 
+        self.chals  = {ch['id'] : ch for ch in challs}
+        # sp.succeed('Found %s challenges'%(len(self.chals)))
         return True
 
     def createArchive(self):
-        with Halo(text='\n Downloading Assets') as sp:
-            self.__Threader(self.chals, self.__getChall)
-            self.__Threader(self.chals, self.__populate)
-            self.__Threader(self.files, self.__download)
-            sp.succeed('Downloaded {0:} files ({1:.2f} MB)'.format(len(self.files),self.dlSize/10**6))
+        # with Halo(text='\n Downloading Assets') as sp:
+        self.__Threader(self.chals, self.__getChall,1)
+        self.__Threader(self.chals, self.__populate)
+        self.__Threader(self.files, self.__download)
+        print('Downloaded {0:} files ({1:.2f} MB)'.format(len(self.files),self.dlSize/10**6))
+        # sp.succeed('Downloaded {0:} files ({1:.2f} MB)'.format(len(self.files),self.dlSize/10**6))
 
     def review(self):
-        print('\n[Summary]')
-        self.__listChall(Halo())
-        print('\n[Finished in {0:.2f} second]'.format(time.time() - self.starTime))
+        # print('\n[Summary]')
+        # self.__listChall(Halo())
+        # print('\n[Finished in {0:.2f} second]'.format(time.time() - self.starTim))
         with open('challs.json','wb') as f:
             data = json.dumps(self.entry ,sort_keys=True, indent=4)
             if sys.version_info.major == 2:
@@ -270,28 +250,8 @@ class CTFdScrape(object):
             else:
                 f.write(bytes(data.encode()))
 
-def main():
-    parser = ArgumentParser(description='Simple CTFd-based scraper for challenges gathering')
-    parser.add_argument('url',  metavar='url', type=str, help='CTFd platform url')
-    parser.add_argument('user', metavar='user', type=str, help='Username/email')
-    parser.add_argument('passwd', metavar='passwd', type=str, help='User password')
-    parser.add_argument('--path', metavar='path', type=str, help='Target directory', default='CTF')
-    parser.add_argument('--worker',  metavar='worker', type=int, help='Number of threads', default=3)
-    parser.add_argument('--scheme',  metavar='scheme', type=str, help='URL scheme, default: https', default='https')
-    parser.add_argument('--override', help='Overrides old chall file', action='store_true')
-    parser.add_argument('--no-download', help='Don\'t download chall assets', action='store_true')
-
-    args = parser.parse_args()
-    ctf  = CTFdScrape(args)
-
-    ctf.getChallenges()
-    ctf.createArchive()
-    ctf.review()
-
-if __name__ == '__main__':
-    main()
-
 # TODO
 # Add Scoreboard (Image / CLI?)
 # Add Cloud Dowloader (Dropbox, Mega.nz, Google Drive)
 # Add Markdown for challs hierarchy
+# Add more argument (override files, challs only, force-download,)
