@@ -38,9 +38,10 @@ class CTFdScrape(object):
             self.__manageVersion()
         
         # Create Folder
-        if not os.path.exists(args.path+'/'+self.title):
-            os.makedirs(args.path+'/'+self.title)
-        os.chdir(args.path+'/'+self.title)
+        self.path = os.path.join(os.getcwd(), args.path, self.title)
+        if not os.path.exists(self.path):
+            os.makedirs(self.path)
+        os.chdir(self.path)
 
     def __bypassCloudflareProtection(self):
         with Halo(text='Checking for DDOS Protection') as sp:
@@ -188,8 +189,7 @@ class CTFdScrape(object):
             vals = self.chals[q.get()]
             ns   = Namespace(**vals)
 
-            path = '%s/%s' % (ns.category,ns.name)
-            path = path.replace(' / ','-')
+            path = os.path.join(self.path, ns.category, ns.name)
             if not os.path.exists(path):
                 os.makedirs(path)
 
