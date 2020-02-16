@@ -1,0 +1,8 @@
+requests
+bs4
+halo
+lxml
+Flask
+flask-sqlalchemy
+wtforms_json
+flask_jwt_extended

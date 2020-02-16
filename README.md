@@ -1,10 +1,13 @@
-### Simple CTFd Scrapper for challenges gathering
+### Simple CTFd Scrapper for challenges gathering & archiving
 
+#### Install Dependencies
+```bash
+$ pip install -r requirements.txt
+```
 #### Usage
 ```bash
-$ python2 ctfd.py
-CTFd URL : SOME_URL
-Username : SOME_USER
-Password : SOME_PASSWD
-
+$ python ctfd.py <url> <user> <passwd> [path=dir]
 ```
+
+#### Example
+![Alt text](./demo.svg)
