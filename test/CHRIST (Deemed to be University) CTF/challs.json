@@ -1,0 +1,155 @@
+{
+    "data": {
+        "Crypto": [
+            {
+                "category": "Crypto", 
+                "description": "My newbie scripting friend just got fooled by one of his friend and the message has been hidden using  Powershell , if you help him to understand, I hope he will provide you the flag.<br />\r\nWarning: You might be fooled !<br />\r\nFlag Format:- secarmy{flag}<br />\r\nAuthor: Elemental X", 
+                "files": [
+                    "/files/b424cb7b30dffb405bc73955f9c2de84/flag.zip?token=eyJ1c2VyX2lkIjo0NTUsInRlYW1faWQiOm51bGwsImZpbGVfaWQiOjI0fQ.Xkg8GA.dUisb9rok1g7EqAoN-q5-p8Jd_s"
+                ], 
+                "hints": [], 
+                "id": 17, 
+                "name": "SUM_IT_UP", 
+                "points": 70, 
+                "solves": 51
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "Hope the name is enough for you<br />\r\nFlag Format :- secarmy{flag}<br />\r\nAuthor: TheIllusion", 
+                "files": [
+                    "/files/db52045eb8f7ec68d394dc9a75929902/DA.zip?token=eyJ1c2VyX2lkIjo0NTUsInRlYW1faWQiOm51bGwsImZpbGVfaWQiOjI5fQ.Xkg8GA.SPEGUu3UpK_WNgqEopzMRm4TnT0"
+                ], 
+                "hints": [], 
+                "id": 26, 
+                "name": "Old School", 
+                "points": 100, 
+                "solves": 167
+            }
+        ], 
+        "Miscellaneous": [
+            {
+                "category": "Miscellaneous", 
+                "description": "One of my friend sent me this binary with two keys \"ENCODE\" & \"DECODE\" and told me the keys are case-sensitive . I am unable to find the hidden message inside , can you help me out ? :(<br />\r\nFlag Format :- secarmy{flag}<br />\r\nAuthor : Elemental X", 
+                "files": [
+                    "/files/1e3679d8cae778eff7ecd75783776c70/encryptox?token=eyJ1c2VyX2lkIjo0NTUsInRlYW1faWQiOm51bGwsImZpbGVfaWQiOjI1fQ.Xkg8GA.GwOKy55F3lEKPsqg214jZR4A8Lk"
+                ], 
+                "hints": [], 
+                "id": 19, 
+                "name": "ENCRYPTO X", 
+                "points": 60, 
+                "solves": 42
+            }
+        ], 
+        "OSINT": [
+            {
+                "category": "OSINT", 
+                "description": "Hey there , our team member just found his new domain name but I am not sure if I should email through it . Please check out .<br /> http://umairnehri.me/<br />\r\nFlag Format :- secarmy {flag}<br />\r\nAuthor : Umair9747", 
+                "files": [], 
+                "hints": [], 
+                "id": 23, 
+                "name": "E-Digger", 
+                "points": 200, 
+                "solves": 53
+            }, 
+            {
+                "category": "OSINT", 
+                "description": "The hashtag hint :- #wearesecarmy<br />\r\nFlag Format:- secarmy{flag}<br />\r\nAuthor : SECARMY\r\n", 
+                "files": [], 
+                "hints": [], 
+                "id": 18, 
+                "name": "1337_gUyz", 
+                "points": 20, 
+                "solves": 25
+            }
+        ], 
+        "Programming": [
+            {
+                "category": "Programming", 
+                "description": "Oi! h0p3 y0u $t1ll r3m3mb3r C++! d0n't y@ ? ;) <br />\r\nAuthor : Umair9747<br />\r\nSECARMY{cpp_1s_TH3_W@Y_T0_G0}<br />\r\nFlag format :- secarmy{flag}\r\n  ", 
+                "files": [
+                    "/files/e5a0591146479f826fe43ee2c1865dca/struct0r.zip?token=eyJ1c2VyX2lkIjo0NTUsInRlYW1faWQiOm51bGwsImZpbGVfaWQiOjN9.Xkg8Fw.PO4iiCPMmCsQHSeZQYPzmKjuns0"
+                ], 
+                "hints": [], 
+                "id": 1, 
+                "name": "SEC++;", 
+                "points": 90, 
+                "solves": 124
+            }
+        ], 
+        "Reversing": [
+            {
+                "category": "Reversing", 
+                "description": "So, can you beat my Proper Algo?<br>\r\nYou must be good at assembly! :)<br>\r\n<kbd>nc 178.128.174.25 7331</kbd><br>\r\n<code>Author: z0m31en7</code>", 
+                "files": [
+                    "/files/42f87f5b2e6b46942307f9a2efcbcecb/Proper_Algo?token=eyJ1c2VyX2lkIjo0NTUsInRlYW1faWQiOm51bGwsImZpbGVfaWQiOjM2fQ.Xkg8GQ.UDLshUS-yclB-BlkShbVlqdwcR8"
+                ], 
+                "hints": [], 
+                "id": 30, 
+                "name": "Proper Algo", 
+                "points": 500, 
+                "solves": 28
+            }
+        ], 
+        "Starters": [
+            {
+                "category": "Starters", 
+                "description": "Welcome to the battlefield warrior ! More power to you ;)<br />\r\nFlag Format :- secarmy{flag}\r\nAuthor : Elemental X", 
+                "files": [
+                    "/files/5f0cae4d15dcf5536e8fba5dd602b43d/bin_base.zip?token=eyJ1c2VyX2lkIjo0NTUsInRlYW1faWQiOm51bGwsImZpbGVfaWQiOjExfQ.Xkg8Fw.PEmq2BUd6pB9E7Wz2GiasSz_q38"
+                ], 
+                "hints": [], 
+                "id": 9, 
+                "name": "B1n_Bas1c", 
+                "points": 10, 
+                "solves": 391
+            }, 
+            {
+                "category": "Starters", 
+                "description": "Welcome on the board ! Know about us and get your flag<br />\r\nFlag Format :- secarmy{flag}<br />\r\nAuthor : Elemental X ", 
+                "files": [], 
+                "hints": [], 
+                "id": 20, 
+                "name": "Welcome", 
+                "points": 30, 
+                "solves": 79
+            }, 
+            {
+                "category": "Starters", 
+                "description": "Here's official server of SECARMY let's see if you can find the flag :) <br />\r\nServer Link : https://discord.gg/AMvR2WW<br />\r\nAuthor: Umair9747<br />\r\nFlag Format :- secarmy{flag}", 
+                "files": [], 
+                "hints": [], 
+                "id": 25, 
+                "name": "Go Emojis ", 
+                "points": 20, 
+                "solves": 170
+            }
+        ], 
+        "Stegnography": [
+            {
+                "category": "Stegnography", 
+                "description": "Snow & Snow everywhere , can you help me to find the flag ? <br />\r\nFlag Format :- secarmy{flag}<br />\r\nAuthor: D4RK LEGEND", 
+                "files": [
+                    "/files/1189323ba824059e1e27d23be87ed18a/SNOW.zip?token=eyJ1c2VyX2lkIjo0NTUsInRlYW1faWQiOm51bGwsImZpbGVfaWQiOjMyfQ.Xkg8Fw.u1GV1CvoF2YzyX4OIMi7p9HKk7E"
+                ], 
+                "hints": [], 
+                "id": 13, 
+                "name": "SNOW", 
+                "points": 100, 
+                "solves": 123
+            }
+        ], 
+        "Welcome": [
+            {
+                "category": "Welcome", 
+                "description": "We know you all are the smartest & sweetest beings of the universe , Do not hesitate to introduce yourself >3.<br />. \r\nhttps://forms.gle/Vy9A2pyaAbWrXuae6\r\n", 
+                "files": [], 
+                "hints": [], 
+                "id": 28, 
+                "name": "Introduction", 
+                "points": 2, 
+                "solves": 390
+            }
+        ]
+    }, 
+    "url": "https://ctf.secarmy.org"
+}
