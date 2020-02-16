@@ -71,6 +71,7 @@ class CTFdScrape(object):
         
         # Other
         self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/.*\.*\w*)')
+        self.escape  = re.compile(r'[\\\/\:\*\?\"\<\>\|]')
         self.travers = True
 
         #Logging
@@ -154,11 +155,11 @@ class CTFdScrape(object):
         if data:
           entry = {
             'id'          : data['id'],
-            'name'        : data['name'],
+            'name'        : self.escape('', data['name']),
             'points'      : data['value'],
             'description' : data['description'],
             'files'       : data['files'],
-            'category'    : data['category'],
+            'category'    : self.escape('', data['category']),
             'solves'      : self.__getSolves(data),
             'hints'       : self.__getHints(data['hints'])
           }
@@ -170,10 +171,11 @@ class CTFdScrape(object):
         while not q.empty():
             path, url = q.get()
             filename  = url.split('/')[-1].split('?')[0]
-            if (not os.path.exists(path + '/' + filename) or self.override) and not self.dl_file:
+            path = os.path.join(path,filename)
+            if (not os.path.exists(path) or self.override) and not self.dl_file:
                 try:
                     resp = self.ses.get(self.url + '/files/' + url, stream=True)
-                    with open(path + '/' + filename, 'wb') as handle:
+                    with open(path, 'wb') as handle:
                         for chunk in resp.iter_content(chunk_size=512):
                             if chunk:
                                 handle.write(chunk)
@@ -193,7 +195,7 @@ class CTFdScrape(object):
             if not os.path.exists(path):
                 os.makedirs(path)
 
-            with open('%s/README.md' % (path),'wb') as f:
+            with open(os.path.join(path, 'README.md'),'wb') as f:
                 desc  = ns.description.encode('utf-8').strip()
                 name  = ns.name.encode('utf-8').strip()
                 cat   = ns.category.encode('utf-8').strip()
