@@ -1,0 +1,218 @@
+{
+    "data": {
+        "Crypto": [
+            {
+                "category": "Crypto", 
+                "description": "007 in charge, what could possibly go wrong?\r\n\r\n`nc 18.141.24.237 10006`\r\n\r\n[Attachment](https://drive.google.com/open?id=1FlPJi9m_HCyzNalEQNe8Qex7ZystJ2i9)\r\n\r\nAuthor: nightmare", 
+                "files": [], 
+                "hints": [], 
+                "id": 1, 
+                "name": "007-1", 
+                "points": 498, 
+                "solves": 2
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "007: \"Who even made this junk? RIP security...\"\r\n\r\n`nc 18.141.24.237 10007`\r\n\r\nFormat flag: Arkav6{}\r\n\r\n[Attachment](https://drive.google.com/open?id=1TOtxrec68_YqT0IM_Mkl4H0AKvIsvdsn)\r\n\r\nAuthor: nightmare", 
+                "files": [], 
+                "hints": [], 
+                "id": 2, 
+                "name": "007-2", 
+                "points": 500, 
+                "solves": 0
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "Istri dari Professor Gaussian baru saja melahirkan seorang bayi yang diberi nama Gaussian Integer. Seorang bayi prodigy bernama Gaussian Integer ini sangatlah skeptis, sehingga setiap kali berbicara pesannya selalu dienkripsi dengan RSA. Sang Professor pun memberikan sayembara bahwa bagi siapa saja yang bisa menerjemahkan pesan dari bayi tersebut, maka professor akan memberikan hadiah berupa sebuah flag.\r\n\r\n`nc 18.141.24.237 10005`\r\n\r\n- Hint: Euler phi gaussian integer\r\n\r\nAuthor: nicholaz99", 
+                "files": [], 
+                "hints": [], 
+                "id": 3, 
+                "name": "Baby Gauss RSA", 
+                "points": 500, 
+                "solves": 0
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "This challenge will blow your mind!\r\nOh yeah, 1 more thing, I bet wolfram alpha can't do it, so don't even try.\r\n\r\n[Attachment](https://drive.google.com/open?id=1TZt11FO2phRiT36bNLXzqU-E5JzQX9HF)\r\n\r\nNote: Format flag Arkav6{}\r\n\r\nHint: `https://en.wikipedia.org/wiki/Rabin_cryptosystem`\r\n\r\nAuthor: haverzard", 
+                "files": [], 
+                "hints": [], 
+                "id": 4, 
+                "name": "pqrsen", 
+                "points": 500, 
+                "solves": 1
+            }, 
+            {
+                "category": "Crypto", 
+                "description": "Seorang professor matematika sangatlah suka teka - teki bersama muridnya. Pada suatu hari, sang professor memberikan teka-teki kepada muridnya. Sang murid diberikan beberapa clue terkait sebuah string secret yang harus ditebak oleh muridnya. Jikalau benar, maka sang Professor akan memberikan hadiah kepada murid tersebut. Tentu saja teka-teki yang diberikan menguji kemampuan matematika murid - muridnya :D.\r\n\r\n`nc 18.141.24.237 10004`\r\n\r\n[Attachment](https://drive.google.com/open?id=1yTGzyGHxdAQ4W9KhhCIdrp-qnhzZB8aJ)\r\n\r\nHint: Nama professor tersebut adalah Fermat :D <br/>\r\n\r\nAuthor: nicholaz99", 
+                "files": [], 
+                "hints": [], 
+                "id": 5, 
+                "name": "Simple Math", 
+                "points": 500, 
+                "solves": 0
+            }
+        ], 
+        "Forensics": [
+            {
+                "category": "Forensics", 
+                "description": "Baek-hyun memiliki sebuah backup files dari Server <b>Arkavidia 6</b> yang berisi IPv6 address server yang terenkripsi dan diubah dalam bentuk hex. Lucunya, Baek-hyun memperoleh backup tersebut pada dimensi lain sehingga header waktunya berbeda dengan aslinya dan tapenya corrupted!\r\n\r\nDengan bantuan gambar yang merepresentasikan dimensi waktu (luas objek tidak presisi) Baek-hyun dan kita, perbaiki disk tersebut dan perolehlah IPv6 address tersebut untuk kita DDoS!\r\n\r\n[Attachment](https://drive.google.com/open?id=16e3AQPlRoQlGx9Q7DFRbWqGpvtS8NE5F)\r\n\r\n- Note: Format flag Arkav6{}\r\n- Hint: Enkripsi yang dilakukan sebenarnya bukan enkripsi, tetapi suatu proses decoding pada IPv6.\r\n- Hint: RFC 1924\r\n\r\nAuthor: haverzard", 
+                "files": [], 
+                "hints": [], 
+                "id": 6, 
+                "name": "\ub204\uac00 \ubd10\ub3c4 \uc6b0\ub9b0", 
+                "points": 500, 
+                "solves": 0
+            }, 
+            {
+                "category": "Forensics", 
+                "description": "Dikarenakan sudah banyak soal sulit, akhirnya dibuat soal 'e-a-s-y' untuk Anda!\r\n\r\nBuktikan kehebatan kemampuan forensics tim Anda!\r\n\r\n[Attachment](https://drive.google.com/open?id=122PjCkf-ZZQURaSE3kzMoxZcP-L6-d0r)\r\n\r\n- Note: Format flag Arkav6{}\r\n- Hint: Soal ini bukan steganography (tidak perlu stego tools) dan tidak perlu bruteforce password zip sama sekali!\r\n- Hint: Mungkin PNG-nya corrupted? Tapi kok kelihatan normal?\r\n\r\nAuthor: haverzard", 
+                "files": [], 
+                "hints": [], 
+                "id": 7, 
+                "name": "\uba4b\uc9c0\uac8c \uc778\uc0ac\ud558\ub294 \ubc95", 
+                "points": 500, 
+                "solves": 0
+            }, 
+            {
+                "category": "Forensics", 
+                "description": "Munir menerima email yang dia tak mengerti. Bantulah Munir mengetahui apa isinya!\r\n\r\n[Attachment](https://drive.google.com/open?id=1xnBmCtgrqOkfEMhgiXBsy7tyUVuqWkhj)\r\n\r\nAuthor: didithilmy", 
+                "files": [], 
+                "hints": [], 
+                "id": 8, 
+                "name": "Patriot", 
+                "points": 410, 
+                "solves": 13
+            }, 
+            {
+                "category": "Forensics", 
+                "description": "Fahmi merupakan penggiat UI/UX yang sudah cukup berpengalaman. \r\nPada suatu hari, dia sedang bosan dan memutuskan untuk mencoba hal baru, yaitu membuat font.\r\nSetelah 4 jam mencoba, dia menyerah karena ternyata membuat font susah. Dia kemudian mengambil font yang open source dengan nama Source Sans Pro, memodifikasinya sedikit, kemudian mengganti namanya menjadi Arkav Sans.\r\n\r\n[Attachment](https://drive.google.com/open?id=1WbhLq1gX0luhAIYVaEyUeYSwAiUxCO6-)\r\n\r\nAuthor: didithilmy", 
+                "files": [], 
+                "hints": [], 
+                "id": 9, 
+                "name": "Tipe Muka", 
+                "points": 100, 
+                "solves": 64
+            }
+        ], 
+        "Misc": [
+            {
+                "category": "Misc", 
+                "description": "![Man digging](/files/cb3bfa4d12cdae7a48e905c10499f166/digging.jpg)", 
+                "files": [], 
+                "hints": [], 
+                "id": 19, 
+                "name": "Dari Nama Saya", 
+                "points": 50, 
+                "solves": 35
+            }, 
+            {
+                "category": "Misc", 
+                "description": "Flagnya ada di Discord gan!\r\n\r\n[Link Discord](https://discord.gg/BcxZcC8)", 
+                "files": [], 
+                "hints": [], 
+                "id": 20, 
+                "name": "Free Flag", 
+                "points": 25, 
+                "solves": 86
+            }
+        ], 
+        "Pwn": [
+            {
+                "category": "Pwn", 
+                "description": "`nc 3.0.19.78 10001`\r\n\r\n[Attachment](https://drive.google.com/open?id=1QErUeKY3TJJVVSXdmXYIPzK2hFZF19t4)\r\n\r\nAuthor: fraglantia", 
+                "files": [], 
+                "hints": [], 
+                "id": 14, 
+                "name": "pakbos01", 
+                "points": 458, 
+                "solves": 13
+            }, 
+            {
+                "category": "Pwn", 
+                "description": "`nc 3.0.19.78 10002`\r\n\r\n[Attachment](https://drive.google.com/open?id=1dkeuCDlahQOhEqPSyU-WcsNSbsPtl1PS)\r\n\r\nAuthor: fraglantia", 
+                "files": [], 
+                "hints": [], 
+                "id": 15, 
+                "name": "pakbos02", 
+                "points": 494, 
+                "solves": 6
+            }, 
+            {
+                "category": "Pwn", 
+                "description": "`nc 3.0.19.78 10003`\r\n\r\n[Attachment](https://drive.google.com/open?id=1NuAT0HcqE6QgO2cyNSTdjQNlmzhdaKV_)\r\n\r\nAuthor: djavaa", 
+                "files": [], 
+                "hints": [], 
+                "id": 16, 
+                "name": "Baby Pwn", 
+                "points": 500, 
+                "solves": 1
+            }
+        ], 
+        "Reverse": [
+            {
+                "category": "Reverse", 
+                "description": "Hmm, found old program. Can you crack it?\r\n\r\n[Attachment](https://drive.google.com/open?id=1_OROdqdUYgiXuA21k-LiK9pzUonvWze9)\r\n\r\nAuthor: djavaa", 
+                "files": [], 
+                "hints": [], 
+                "id": 13, 
+                "name": "Old School", 
+                "points": 500, 
+                "solves": 0
+            }, 
+            {
+                "category": "Reverse", 
+                "description": "Can you crack me, plz?\r\n\r\n[Attachment](https://drive.google.com/open?id=1Vx69kZ_rLD_a1LYaVwb36aY3ZKbi_wnP)\r\n\r\nAuthor : alphaville", 
+                "files": [], 
+                "hints": [], 
+                "id": 17, 
+                "name": "uwu", 
+                "points": 290, 
+                "solves": 28
+            }, 
+            {
+                "category": "Reverse", 
+                "description": "Can you run this library?\r\n\r\n[Attachment](https://drive.google.com/open?id=1Qiqh0caqdLO9XAb-ajOCYs25jjgQ3FWy)\r\n\r\n- Note: Jangan ubah nama library\r\n- Hint: Delphi 7, Common Hash Algorithm\r\n\r\nAuthor: djavaa", 
+                "files": [], 
+                "hints": [], 
+                "id": 18, 
+                "name": "1001 Malam", 
+                "points": 500, 
+                "solves": 1
+            }
+        ], 
+        "Web": [
+            {
+                "category": "Web", 
+                "description": "*There's a new fintech player in town!*\r\n\r\nKatanya sih aman, tapi ternyata seorang hekelmen berhasil membocorkan sebagian source code ArkavPay.\r\n[Source code](https://drive.google.com/open?id=1M1a0vUFhtAGg0USZUdwnqSsNau7t6XSa)\r\n\r\n`http://18.141.24.237:14000`\r\n\r\nAuthor: didithilmy", 
+                "files": [], 
+                "hints": [], 
+                "id": 10, 
+                "name": "ArkavPay", 
+                "points": 491, 
+                "solves": 7
+            }, 
+            {
+                "category": "Web", 
+                "description": "Saya baru saja belajar mata kuliah Jaringan Komputer, sebagai Tugas Besar, saya ditugaskan untuk membuat HTTP server sederhana tanpa menggunakan library HTTP apapun.\r\n\r\n`http://3.0.19.78:15001`\r\n\r\nAuthor: didithilmy", 
+                "files": [], 
+                "hints": [], 
+                "id": 11, 
+                "name": "Balasan Buruk", 
+                "points": 344, 
+                "solves": 23
+            }, 
+            {
+                "category": "Web", 
+                "description": "No need to inspect element to fool your friends!\r\n\r\n`http://3.0.19.78:15002`\r\n\r\nAuthor: didithilmy", 
+                "files": [], 
+                "hints": [], 
+                "id": 12, 
+                "name": "Edit Your Source", 
+                "points": 244, 
+                "solves": 32
+            }
+        ]
+    }, 
+    "title": "Arkavidia", 
+    "url": "https://ctf.arkavidia.id"
+}

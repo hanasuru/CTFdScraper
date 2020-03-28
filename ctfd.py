@@ -20,19 +20,19 @@ class CTFdScrape(object):
   __urlParse  = re.compile('(?P<scheme>http.*://)?(?P<host>[^:/ ]+):?(?P<port>[0-9]*)')
 
   def __init__(self, args):
-		self.auth      = dict(name=args.user, password=args.passwd)
-		self.url       = self.__urlParse.search(args.url)
-		self.worker    = args.worker
-		self.scheme    = args.scheme
-		self.override  = args.override
-		self.dl_file   = args.no_download
-		self.basepath  = args.path
-		self.starTime  = time.time()
-		self.challs 	 = {}        
+    self.auth      = dict(name=args.user, password=args.passwd)
+    self.url       = self.__parseUrl(args.url)
+    self.worker    = args.worker
+    self.scheme    = args.scheme
+    self.override  = args.override
+    self.dl_file   = args.no_download
+    self.basepath  = args.path
+    self.starTime  = time.time()
+    self.__setEnVar()
      
   def __bypassCloudflareProtection(self):
     with Halo(text='Checking for DDOS Protection') as sp:
-      if self.ses.get(self.url, timeout=0.5).status_code == 503:
+      if self.ses.get(self.url, timeout=10).status_code == 503:
         self.ses = create_scraper()
         sp.succeed('DDOS Protection Found')
 
@@ -43,19 +43,16 @@ class CTFdScrape(object):
     self.dlSize  = 0.0
     self.chcount = 0
     self.files   = []
-    self.url     = self.url.group() if self.url.group('scheme') else\
-                    '%s://%s' % (self.scheme, self.url.group())
-    self.entry   = dict(url=self.url, title=self.title, data={})
-   
+
     # Persistent session
     self.ses     = session()
     self.ses.headers.update({'User-Agent' : self.__userAgent})
-   
+
     # CTFd Endpoint
     self.ch_url  = self.url + '/api/v1/challenges'
     self.hi_url  = self.url + '/api/v1/hints'
     self.lg_url  = self.url + '/login'
-    
+
     # Other     
     self.charlst = re.escape('\/:*?"<>|.')
     self.regex   = re.compile(r'(\/files\/)?([a-f0-9]*\/.*\.*\w*)')
@@ -64,7 +61,7 @@ class CTFdScrape(object):
 
     #Logging
     if not os.path.exists('logs'):
-    	os.makedirs('logs')
+      os.makedirs('logs')
     log.basicConfig(filename='logs/debug.log', level=log.INFO)
 
   def __login(self):
@@ -88,6 +85,13 @@ class CTFdScrape(object):
       self.hi_url  = self.url + '/hints'
       self.sol_url = self.ch_url + '/solves'
 
+  def __parseUrl(self, url):
+    matches = self.__urlParse.search(url)
+    if matches:
+      url = matches.group() if matches.group('scheme') else\
+      '%s://%s' % (self.scheme, matches.group())
+    return url
+
   def __getHintById(self, id):
     resp = self.ses.get('%s/%s' % (self.hi_url,id)).json()
     return resp['data']['content']
@@ -97,25 +101,25 @@ class CTFdScrape(object):
     for hint in data:
       if hint['cost'] == 0:
         if self.version != 'v.1.2.0':
-        	res.append(self.__getHintById(hint['id']))
+          res.append(self.__getHintById(hint['id']))
         else:
-        	res.append(hint['hint'])
+          res.append(hint['hint'])
     return res
 
   def __getSolves(self, data):
     if self.version != 'v.1.2.0':
-    	return data['solves']
+      return data['solves']
     else:
       try:
-      	return self.solves[str(data['id'])]
+        return self.solves[str(data['id'])]
       except:
         self.solves = self.ses.get(self.sol_url).json()
         return self.solves[str(data['id'])]
 
   def __getChallById(self, id):
     try:
-	    resp = self.ses.get('%s/%s' % (self.ch_url,id)).json()
-	    return self.__parseData(resp['data'])
+      resp = self.ses.get('%s/%s' % (self.ch_url,id)).json()
+      return self.__parseData(resp['data'])
     except Exception as e:
       log.exception(str(e) + '\n') 
 
@@ -130,10 +134,10 @@ class CTFdScrape(object):
           if self.traverseable:
             self.chals[id] = self.__getChallById(id)
           else:
-            self.chals[id] = self.__parseData(self.challs[id])
+            self.chals[id] = self.__parseData(self.chals[id])
         except:
           self.traverseable = False
-          self.chals[id] = self.__parseData(self.challs[id])
+          self.chals[id] = self.__parseData(self.chals[id])
 
       self.chals.pop(id) if not self.chals[id] else None
       q.task_done()
@@ -205,7 +209,7 @@ class CTFdScrape(object):
       self.files += [(path, self.regex.search(i).group(2)) for i in ns.files]
       data = self.entry['data'].get(ns.category, list())
       if not data:
-          self.entry['data'][ns.category] = data
+        self.entry['data'][ns.category] = data
       data.append(vals)
       q.task_done()
     return True
@@ -227,38 +231,43 @@ class CTFdScrape(object):
     del que
 
   def authenticate(self):
-		self.__setEnVar()
-		# DDOS protection bypass
-		self.__bypassCloudflareProtection()
-		with Halo(text='\n Authenticating') as sp:
-			if not self.__login():
-				sp.fail(' Login Failed :(')
-				sys.exit()
-			sp.succeed(' Login Success')
-		self.__manageVersion()
+    # DDOS protection bypass
+    self.__bypassCloudflareProtection()
+    with Halo(text='\n Authenticating') as sp:
+      if not self.__login():
+        sp.fail(' Login Failed :(')
+        sys.exit()
+      sp.succeed(' Login Success')
+    self.__manageVersion()
 
   def getChallenges(self):
     with Halo(text='\n Collecting challs') as sp:
       try:
-        self.challs = self.ses.get(self.ch_url).json()[self.keys]
-        self.challs = sorted(self.challs, key=lambda _: _['category']) 
-        self.challs = {ch['id'] : ch for ch in self.challs}
-        sp.succeed('Found %s challenges'%(len(self.chals)))
+        self.chals = self.ses.get(self.ch_url).json()[self.keys]
+        self.chals = sorted(self.chals, key=lambda _: _['category']) 
+        self.chals = {ch['id'] : ch for ch in self.chals}
+        diff = len(self.chals)-self.chcount
+        if diff>0:
+          sp.succeed('Found %s new challenges'%(diff))
+        else:
+          sp.warn('There are no updates available')
       except:
         sp.fail('No challenges found :(')
         sys.exit()
     return True
 
   def createArchive(self):
-    self.path = os.path.join(os.getcwd(), self.basepath, self.title)
+    self.path  = os.path.join(os.getcwd(), self.basepath, self.title)
+    self.entry = dict(url=self.url, title=self.title, data={})
     if not os.path.exists(self.path):
-        os.makedirs(self.path)
+      os.makedirs(self.path)
     os.chdir(self.path)
 
     with Halo(text='\n Downloading Assets') as sp:
-      self.__Threader(self.challs, self.__getChall)
-      self.__Threader(self.chals,  self.__populate)
-      self.__Threader(self.files,  self.__download)
+      if self.auth['name']:
+        self.__Threader(self.chals, self.__getChall)
+      self.__Threader(self.chals, self.__populate)
+      self.__Threader(self.files, self.__download)
       sp.succeed('Downloaded {0:} files ({1:.2f} MB)'.format(len(self.files),self.dlSize/10**6))
 
   def review(self):
@@ -273,32 +282,32 @@ class CTFdScrape(object):
       	f.write(bytes(data.encode()))
 
   def parseConfig(self, path):
-  	with Halo(text='\n Loading an existing data') as sp:
-			try:
-				self.chals = dict()
-				with open(path) as config:
-					data = json.loads(config.read())
-				for vals in data['data'].values():
-					for val in vals:
-						id = val['id']
-						self.chals[id] = val
-				self.url = self.__urlParse.search(data['url'])
-				self.title = data['title']
-				self.__setEnVar()
-				sp.succeed('Found %s challenges'%(len(self.chals)))
-			except Exception as e:
-				log.exception(str(e) + '\n')
-				sp.fail('Format error. Please check the challs.json')
-				sys.exit()
+    with Halo(text='\n Loading an existing data') as sp:
+      try:
+        self.chals = dict()
+        with open(path) as config:
+          data = json.loads(config.read())
+        for vals in data['data'].values():
+          for val in vals:
+            id = val['id']
+            self.chals[id] = val
+        self.url = data['url']
+        self.title = data['title']
+        self.chcount = len(self.chals)
+        sp.succeed('Load %s challs from existed data'%(len(self.chals)))
+      except Exception as e:
+        log.exception(str(e) + '\n')
+        sp.fail('challs.json No such file or directory')
+        sys.exit()
 
 def main():
   parser = ArgumentParser(description='Simple CTFd-based scraper for challenges gathering')
   parser.add_argument('user', nargs='?', metavar='user', type=str, help='Username/email')
   parser.add_argument('passwd', nargs='?', metavar='passwd', type=str, help='User password')
   parser.add_argument('url', nargs='?',  metavar='url', type=str, default='', help='CTFd platform url')
-  parser.add_argument('--data', metavar='data', type=str, help='Populate from chall.json')
+  parser.add_argument('--data', metavar='data', type=str, help='Populate from challs.json')
   parser.add_argument('--path', metavar='path', type=str, help='Target directory, default: CTF', default='CTF')
-  parser.add_argument('--worker',  metavar='worker', type=int, help='Number of threads, default: 3', default=3)
+  parser.add_argument('--worker',  metavar='worker', type=int, help='Number of threads, default: 5', default=5)
   parser.add_argument('--scheme',  metavar='scheme', type=str, help='URL scheme, default: https', default='https')
   parser.add_argument('--override', help='Overrides old chall file', action='store_true')
   parser.add_argument('--no-download', help='Don\'t download chall assets', action='store_true')
@@ -307,17 +316,16 @@ def main():
   ctf  = CTFdScrape(args)
   
   if args.data or args.url:
-  	if args.user and args.passwd:
-  		ctf.authenticate()
-  		ctf.getChallenges()
-  	else:
-  		ctf.dl_file = True
-		if args.data:
-			ctf.parseConfig(args.data)
-		ctf.createArchive()
-		ctf.review()
+    if args.data:
+      ctf.parseConfig(args.data)
+    if args.user and args.passwd:
+      ctf.authenticate()
+      ctf.getChallenges()
+    else: ctf.dl_file = True
+    ctf.createArchive()
+    ctf.review()
   else:
-  	parser.error('too few arguments')
+    parser.error('too few arguments')
 	
 if __name__ == '__main__':
   main()
