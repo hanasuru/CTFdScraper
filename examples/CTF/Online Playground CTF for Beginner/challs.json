@@ -1,0 +1,583 @@
+{
+    "data": {
+        "Cryptography": [
+            {
+                "category": "Cryptography", 
+                "description": "Base64 merupakan salah satu encoding string paling mainstream yang sering dipakai.\r\n\r\nAyo coba decode flag ini\r\nFlag: UGxheWdyb3VuZENURntiNHNlNjRfMXNfYzBvTHpafQ==", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 11, 
+                "name": "Base64", 
+                "points": 50, 
+                "solves": 166
+            }, 
+            {
+                "category": "Cryptography", 
+                "description": "Flag: 506c617967726f756e644354467b6833786833786833785f68316b737d", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 12, 
+                "name": "Hex", 
+                "points": 50, 
+                "solves": 158
+            }, 
+            {
+                "category": "Cryptography", 
+                "description": "Single-Byte XOR Cipher adalah metode enkripsi data dimana tiap character pada string di XOR dengan suatu char lain (key). Dibawah terdapat flag yang sudah di enkripsi dengan Single-Byte XOR method. Coba temukan key dan decrypt flag dibawah ini.\r\n\r\nFlag: 370b061e0015081209032433211c1f571538132f5438141315560900521a", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 13, 
+                "name": "Single-Byte XOR Cipher", 
+                "points": 50, 
+                "solves": 89
+            }, 
+            {
+                "category": "Cryptography", 
+                "description": "This is multiprime RSA. Decrypt c and you will get the flag.\r\nCredit: p4 and JOINTS UGM.\r\n\r\nc = 1173128209584468785398425145154131532483776694056486718248019667753072029315313702736993631720\r\nn = 1850195628116871680423392008162891486298855759148914759564225087353621731522666807117150132479\r\ne = 3", 
+                "files": [], 
+                "hints": [
+                    "Gauss-Matrix"
+                ], 
+                "id": 17, 
+                "name": "Gauss Multiprime RSA", 
+                "points": 884, 
+                "solves": 8
+            }, 
+            {
+                "category": "Cryptography", 
+                "description": "This is easy RSA. We will give you the value of c, n, and d :).\r\nDecrypt the c and you will get the flag.\r\n\r\nc = 78064560650237174210958578934328679356646229951075984547327228170172338052008858626583845924191526586131327068119234145316578426004114733425439654596829800468405448999616081545974988856884947021331246043159029497309733580536899607134689480320209878461887122158247511873995150377436873061426788703663367333241494785608468885903907503971575319871907601527405659028196086428195039135932522368757320091632581973285734747102905632121194335495777744572017748355973447L\r\nn = 1725929564388636756975314180628527195915375750596176744414990753662882307611450809760335242155814203307325485989390467647019120704820861930120849453931184153782190552311480818525022186785739705600930249981483347753936561092488287631093614862861585149671498490036908588390952017193372634589775004849921767250328873504039371574268292890583942603601802139190556233969722533936272033997322944474497978322439314912113758989597099980252025360986195979621734851675107487L\r\nd = 1062519709550695616169889160804409085652406274830299631203247279357960382423540814663327367441574680663401651856629809232748423698928887428973797886206380359203857849366715017196068650215117134906048957489867156445619849892896929877381610825032539789222468629056783997510834922242106970588709781480044345481599505690377891959579005591418578115665099945225158012555682446054554073462094907010661792127278860634228800357465729332388633853210886137619983796297887601L", 
+                "files": [], 
+                "hints": [
+                    "from Crypto.Util.number import *\r\nflag = long_to_bytes(pow(c, d, n))"
+                ], 
+                "id": 15, 
+                "name": "Intro to RSA", 
+                "points": 50, 
+                "solves": 52
+            }, 
+            {
+                "category": "Cryptography", 
+                "description": "It is too easy right if I give you the d value? I will not give you the d value now. Decrypt c and you will get the flag.\r\n\r\nc = 16242234474473258887540124223610278921755418492811947834490614251810096797056381511309796570464863939137936493103736370\r\n\r\ne = 65537\r\n\r\nn = 833810193564967701912362955539789451139872863794534923259743419423089229206473091408403560311191545764221310666338878019", 
+                "files": [], 
+                "hints": [
+                    "factordb.com"
+                ], 
+                "id": 16, 
+                "name": "RSA 2", 
+                "points": 50, 
+                "solves": 34
+            }, 
+            {
+                "category": "Cryptography", 
+                "description": "Decrypt C and you will get the flag\r\n\r\nc = 23204203148405227866794199481391836864040537200153697458364735469207000172123299882186055813009634734186243301437378872731103736923512366430416175739955803593497904926372947116541468046670109846038268590535477227898458436058988560305513382634529178328862699988314752608546828956920622939932751526877939094878137541469921706652970099738838283436428998261985993869689723114194260723917907396286995475794455499408809334237567974322403562748035049947637318223026172584631697650272301019344315690354646985303075214524401469790710564478234567889113361766850642732288757709845322815877573523290478387223433779167264722793766\r\nn = 26631524400118074871184149479279528739027655349668496578261983547279692367310156034939752027460487663819930945900568267500738538625029540266022777510229133248359567458530812301898400776207121702594430777201196473914945142938241481505083336493941755104669243314286616137224904632222865431213464803491449557292069196194022421005766170161723753354406977087746155175298243678695083225112338259470459159828955326416578049697131878680591625510641444736488602626116074121291000204037202500154534142702213969225563357334699643235937666603581314645371204719508967584975035990510988282119681720332158101039146711299666218965347\r\ne = 65537", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 18, 
+                "name": "Fermat RSA", 
+                "points": 50, 
+                "solves": 26
+            }, 
+            {
+                "category": "Cryptography", 
+                "description": "nc 165.22.59.148 31002", 
+                "files": [
+                    "/files/f714e4bca4c2ec701b44f1958d06ccab/server-fix.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjMxfQ.XoSOXg.iO2XRhKyoHRW56cLRKGreGVVyQU"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 49, 
+                "name": "Paddle", 
+                "points": 1000, 
+                "solves": 0
+            }, 
+            {
+                "category": "Cryptography", 
+                "description": "", 
+                "files": [
+                    "/files/2aecaee815bca3f824d31acf0e232d80/output.txt?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjI5fQ.XoSOXg.6sQVIAtNHlKQ-rCd53aYDi8BsG0", 
+                    "/files/e145e5126195206d26c4adf2c3c5107d/not-so-random.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjMwfQ.XoSOXg.XkbkgesjGuIEXc-Jz8BibVSghPs"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 48, 
+                "name": "Random", 
+                "points": 50, 
+                "solves": 22
+            }
+        ], 
+        "Forensic": [
+            {
+                "category": "Forensic", 
+                "description": "Exiftool biasa dipakai untuk melihat metadata suatu file, seperti kapan file tersebut dibuat, siapa yang membuat file tersebut, hingga lokasi file tersebut dibuat juga. Seringkali flag disembunyikan di metadata tersebut.\r\n\r\nCoba gunakan exiftool untuk menemukan flag pada file terlampir.", 
+                "files": [
+                    "/files/7935779895596a2534475fb8bb7b6623/gardener.png?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjl9.XoSOXQ.E5n5Fwt1X53xNbQbDPbJJLy-HwU"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 10, 
+                "name": "Exiftool", 
+                "points": 50, 
+                "solves": 96
+            }, 
+            {
+                "category": "Forensic", 
+                "description": "Strings adalah salah satu command yang dipakai untuk memunculkan karakter - karakter yang terkandung dalam suatu file yang printable. Strings menjadi salah satu command yang paling sering dipakai dalam mengerjakan soal kategori Forensic, karena seringkali pembuat soal menyembunyikan Flag di dalam file tersebut.\r\n\r\nCoba temukan flag di file terlampir.", 
+                "files": [
+                    "/files/471c3a2bc01761b0b71b6b997c131af3/group-2.png?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjd9.XoSOXQ.fVS_sYvaOJW_wxqtNvK6KbN7C1w"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 8, 
+                "name": "Strings", 
+                "points": 50, 
+                "solves": 113
+            }, 
+            {
+                "category": "Forensic", 
+                "description": "Tentunya kita tahu bahwa ada berbagai macam jenis file, yang pada umumnya dibedakan dari extensionnya (.jpg, .png, .exe, .zip, dll). Tapi, pada kenyataannya, file extension tidak menjadi satu - satunya cara untuk membedakan jenis file.\r\n\r\nJika kita mencoba dump content suatu file kedalam bentuk hexadecimal, kita dapat melihat beberapa byte awal pada file tersebut, dimana byte - byte awal tersebut disebut <a href=\"https://en.wikipedia.org/wiki/List_of_file_signatures\"><b>File Signature</b></a>.\r\n\r\nPada challenge kali ini, akan diberikan sebuah file jpeg yang rusak, dan kalian diminta untuk melihat apakah File Signature nya sudah benar atau belum. Jika belum benar, coba kalian perbaiki file signaturenya agar kalian bisa membuka file tersebut.\r\n\r\nFlag pada challenge ini tersembunyi pada foto yang rusak tersebut.", 
+                "files": [
+                    "/files/c362458be2a1a84d494c3b550c8e12fd/flag.jpg?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjh9.XoSOXQ.RcybKkzocgwFTUjoH6hIrigpNzo"
+                ], 
+                "hints": [
+                    "Flag telah diubah menjadi `case insensitive`"
+                ], 
+                "id": 9, 
+                "name": "File Formats", 
+                "points": 50, 
+                "solves": 64
+            }, 
+            {
+                "category": "Forensic", 
+                "description": "Seringkali dalam CTF kita diberikan sebuah zip berpassword, dan kita dituntut untuk menebak password dari file zip tersebut tanpa clue apa-apa.\r\n\r\nUntuk kasus seperti ini, kita dapat menggunakan file rockyou.txt yang sudah tersebar luas di internet, dimana file tersebut berisi sekumpulan password paling common yang biasa dipakai.\r\n\r\nPada challenge kali ini, kalian bisa coba mengcrack password file zip yang diberikan untuk mendapatkan flag", 
+                "files": [
+                    "/files/1766d8160ca3b2ffd938a3b762071c9f/flag.zip?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjExfQ.XoSOXQ.fqI3PO0HeyW9A91EAQX-0VzVAzc"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 14, 
+                "name": "Rockyoutxt", 
+                "points": 50, 
+                "solves": 66
+            }, 
+            {
+                "category": "Forensic", 
+                "description": "Passphrase: s4sUk3s4Kur4", 
+                "files": [
+                    "/files/07f7400abdb79b586f177a8d8cc10019/narutoooo.jpg?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjEyfQ.XoSOXQ.T7XZd6Xp27pyhlWkmpSVveO12uI"
+                ], 
+                "hints": [
+                    "steghide"
+                ], 
+                "id": 19, 
+                "name": "Naruto vs Sasuke", 
+                "points": 50, 
+                "solves": 92
+            }, 
+            {
+                "category": "Forensic", 
+                "description": "Sepertinya komputer saya terinfeksi virus, bisakah kalian mencari proses mana virus tersebut?\r\n\r\nFile: <a href=\"https://drive.google.com/open?id=1asEjVtbEgha9gaH-nu8ZhzkcOt6I6Ad9\">image.vmem</a>\r\n\r\nFormat Flag: `Bootcamp{.*}`", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 39, 
+                "name": "Volatility 1", 
+                "points": 50, 
+                "solves": 26
+            }, 
+            {
+                "category": "Forensic", 
+                "description": "Don't see my browser history!!\r\n\r\nFile: sama seperti Volatility 1\r\n\r\nFormat Flag: `Bootcamp{.*}`", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 41, 
+                "name": "Volatility 2", 
+                "points": 50, 
+                "solves": 35
+            }, 
+            {
+                "category": "Forensic", 
+                "description": "What is environment?\r\n\r\nFile: sama seperti Volatility 1\r\n\r\nFormat Flag: `Bootcamp{.*}`", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 42, 
+                "name": "Volatility 3", 
+                "points": 50, 
+                "solves": 36
+            }, 
+            {
+                "category": "Forensic", 
+                "description": "Don't peek at my desktop!!\r\n\r\nFile: sama seperti Volatility 1\r\n\r\nFormat Flag: `Bootcamp{.*}`", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 43, 
+                "name": "Volatility 4", 
+                "points": 713, 
+                "solves": 12
+            }, 
+            {
+                "category": "Forensic", 
+                "description": "", 
+                "files": [
+                    "/files/7ebc2b6698f1c58cb43c7d53417df150/sniff.pcapng?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjI4fQ.XoSOXg.2di-zrJ5DSJgLyX281hLU-dR2ug"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 47, 
+                "name": "Data Exfil", 
+                "points": 50, 
+                "solves": 50
+            }
+        ], 
+        "Hacktoday 2019 - Penyisihan": [
+            {
+                "category": "Hacktoday 2019 - Penyisihan", 
+                "description": "aku dimana?\r\n\r\nunrelated: https://www.youtube.com/watch?v=1AhDtMxwnvI\r\n\r\nauthor: circleous - IPB\r\n\r\nFormat Flag: hacktoday{<i>flag</i>}", 
+                "files": [
+                    "/files/ca7c9f7fc4ef565042244a05926eb44e/nani-the-fuk?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjEzfQ.XoSOXQ.YguoLzu7INCMzYuEvbYzBBfIFZs"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 20, 
+                "name": "Reverse - Nani-the-fuk", 
+                "points": 314, 
+                "solves": 18
+            }, 
+            {
+                "category": "Hacktoday 2019 - Penyisihan", 
+                "description": "Wait a minute.. I see something unusual\r\n\r\nauthor: deomkicer - IPB\r\n\r\nFormat flag: hacktoday{flag}", 
+                "files": [
+                    "/files/40475eada87a7addaaf1e391a017df81/flag.enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjE5fQ.XoSOXQ.4kAtJfJ0kHC1G5GMVPQR9QjtQ7o", 
+                    "/files/a97de32e2d2d7ae1502d51a33bc916ba/babyrsa.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjIwfQ.XoSOXQ.T4n4xHyPOYyTlfcZ-CrEagXb5i8"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 24, 
+                "name": "Crypto - babyRSA", 
+                "points": 658, 
+                "solves": 13
+            }, 
+            {
+                "category": "Hacktoday 2019 - Penyisihan", 
+                "description": "friska like a vampire HAHAHAHA\r\n\r\nformat flag: hacktoday{flag}\r\n\r\nauthor: monhack - IPB", 
+                "files": [
+                    "/files/f58897064d3704aaf1c2ad619d4eb9d2/acid.txt?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjE1fQ.XoSOXQ.kwcoPOE8TPK3XUta1m7He6WoIDM"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 23, 
+                "name": "Crypto - acid (-_-)", 
+                "points": 50, 
+                "solves": 33
+            }, 
+            {
+                "category": "Hacktoday 2019 - Penyisihan", 
+                "description": "Pls make it quick, boom\r\nauthor: deomkicer - IPB\r\n\r\nFormat flag: hacktoday{flag}", 
+                "files": [
+                    "/files/6b3d0d8fb6e2d9b8f8e4e881a79ea8ec/enc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjE2fQ.XoSOXQ.7p7rIcSSwK-Rgu1lCYhzcgVDxV8", 
+                    "/files/2df4c292885033145802f9bfb1cd80b1/rsa-goes-skrrrahh.py?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjE3fQ.XoSOXQ.gk649n3XvS1XbPGQ2DyzswejdVE"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 25, 
+                "name": "Crypto - rsa-goes-skrrrahh", 
+                "points": 535, 
+                "solves": 15
+            }, 
+            {
+                "category": "Hacktoday 2019 - Penyisihan", 
+                "description": "Because I know, somewhere DeeP down in my heart, I still love you. hwaaaaaaaaaaaaaaaaa\r\nauthor: vidner - IPB\r\n", 
+                "files": [
+                    "/files/2fe8c269e94a6850a161f6d16e754b33/source.pyc?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjE0fQ.XoSOXQ.RoEoJicoVzPS50uZsCe3bivMTXc"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 21, 
+                "name": "Reverse - deep", 
+                "points": 884, 
+                "solves": 8
+            }
+        ], 
+        "Intro": [
+            {
+                "category": "Intro", 
+                "description": "Berikut adalah jenis-jenis kategori CTF:\r\n<li>Pwn</li>\r\n<li>Web</li>\r\n<li>Reverse</li>\r\n<li>Cryptography</li>\r\n<li>Forensic</li>\r\n<li>dll...</li>\r\n<li><p style=\"color:white\">Flag: PlaygroundCTF{j3ni5_j3n1s_cTf}</p></li>\r\n\r\nNext intro challenge akan membahas lebih lanjut mengenai kategori - kategori pada lomba CTF\r\n\r\nP.S. Flag pada challenge ini tersembunyi pada deskripsi ini", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 2, 
+                "name": "Jenis - jenis challenge pada CTF", 
+                "points": 50, 
+                "solves": 174
+            }, 
+            {
+                "category": "Intro", 
+                "description": "Web adalah salah satu kategori pada lomba CTF dimana peserta akan diberikan sebuah web, dan peserta diminta untuk mencari celah pada web tersebut, sehingga peserta dapat menemukan flag yang disembunyikan oleh author.\r\n\r\n<i style=\"Flag: PlaygroundCTF{1nsp3ct_eL3m3nT_pl3a53}\">P.S. Flag nya tersembunyi di deskripsi ini ya. Kalau ngga nemu, coba liat hint aja</i>", 
+                "files": [], 
+                "hints": [
+                    "Salah satu cara melihat flag yg tersembunyi adalah menggunakan INSPECT ELEMENT"
+                ], 
+                "id": 4, 
+                "name": "Apa itu Web", 
+                "points": 50, 
+                "solves": 163
+            }, 
+            {
+                "category": "Intro", 
+                "description": "<p>CTF atau biasa disebut Capture The Flag adalah kompetisi dalam bidang security di mana para peserta diminta mencari flag (berupa string tertentu) yang disembunyikan atau dilindungi dengan cara tertentu.</p>\r\n<p>Pada Playground CTF ini, format flagnya adalah PlaygroundCTF{xxxxxxxxxxx}. </p>\r\n<p>\r\nKetika kalian berhasil menemukan flag pada suatu challenge, kalian dapat mengumpulkan flag kalian pada challenge terkait, dan kalian akan mendapatkan poin. Goodluck and Have Fun!\r\n</p>\r\n\r\nFlag: PlaygroundCTF{w3lC0m3_t0_pl4YgR0unD_cTF}", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 1, 
+                "name": "What is CTF", 
+                "points": 50, 
+                "solves": 200
+            }, 
+            {
+                "category": "Intro", 
+                "description": "Pwn adalah salah satu kategori challenge yang menuntut peserta untuk menemukan celah keamanan pada suatu file, sehingga peserta dapat mengubah cara kerja program tersebut sesuai dengan keinginannya.\r\n\r\nUmumnya, goals dari challenge kategori Pwn ini adalah peserta dapat mengeksploit program yang diberikan, sehingga peserta mampu menjalankan perintah (command) yang dia inginkan.\r\n\r\nUntuk lebih jelasnya, nanti kalian dapat mengerjakan soal - soal pada kategori Pwn di playground ini.\r\n\r\nFlag: PlaygroundCTF{i_kn0w_pWn_x0x0}", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 3, 
+                "name": "Apa itu Pwn", 
+                "points": 50, 
+                "solves": 193
+            }, 
+            {
+                "category": "Intro", 
+                "description": "Forensic adalah salah satu ketgori CTF dimana peserta diberikan sebuah file, lalu peserta diminta untuk melakukan analisis file tersebut, misal struktur filenya, isi dari filenya, format filenya, dll, hingga peserta berhasil menemukan flag yang tersembunyi. File dapat berupa gambar, zip, pcap, dll.\r\n\r\nCoba download gambar yang terlampir, lalu coba cari flag tersembunyi pada gambar tersebut", 
+                "files": [
+                    "/files/9a3150e311a98565af8b2349903c6c9f/kangchenjunga_copy.jpg?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjZ9.XoSOXQ.akYzvKFmG_q6fgjBcUyyPFCzvNo"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 6, 
+                "name": "Apa itu Forensic", 
+                "points": 50, 
+                "solves": 151
+            }, 
+            {
+                "category": "Intro", 
+                "description": "Cryptography adalah kategori CTF dimana pada umumnya, peserta diminta untuk mendecrypt flag yang sudah diencrypt dengan metode tertentu. Metode - metode yang umum adalah Viginere Cipher, RSA, AES, dll.\r\n\r\nBerikut adalah flag pada challenge ini yang sudah dienkripsi oleh salah satu anggota tim PlaygroundCTF, <b><i>Julius Caesar</i></b>\r\n\r\nEncrypted Flag: VGXUGE_OMQEMD_ODQMFQ_M_OUBTQD\r\n\r\nFormat Flag: PlaygroundCTF{<i>decrypted_flag</i>}", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 7, 
+                "name": "Apa itu Cryptography", 
+                "points": 50, 
+                "solves": 140
+            }, 
+            {
+                "category": "Intro", 
+                "description": "Reverse adalah katgori dimana peserta diberikan sebuah code atau file, lalu peserta dituntut untuk mencoba memahami cara kerja code atau file tersebut, sehingga peserta dapat menemukan flag yang tersembunyi tersebut.\r\n\r\nBerikut terlampir contoh file yang memiliki flag tersembunyi. Coba jalankan file tersebut dan cari flagnya!", 
+                "files": [
+                    "/files/1d5b9ded347516f2b9389963a35745e5/reverse_example?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjI1fQ.XoSOXQ.6xij2cQD8t8P1pHrRtbzr6J0Bns"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 5, 
+                "name": "Apa itu Reverse", 
+                "points": 50, 
+                "solves": 99
+            }
+        ], 
+        "Pwn": [
+            {
+                "category": "Pwn", 
+                "description": "What do you think about linux?\r\n\r\nnc 34.226.140.190 10004", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 31, 
+                "name": "Shell", 
+                "points": 314, 
+                "solves": 18
+            }, 
+            {
+                "category": "Pwn", 
+                "description": "Just run it\r\n\r\nnc 34.226.140.190 10003", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 30, 
+                "name": "nc", 
+                "points": 50, 
+                "solves": 29
+            }, 
+            {
+                "category": "Pwn", 
+                "description": "nc 34.226.140.190 10000\r\n\r\nAuthor: wearemarching - Arkavidia5", 
+                "files": [
+                    "/files/2b5957de4cdf24deab13d2cb11234ebb/cariuang?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjIxfQ.XoSOXQ.oJKvtL8UmIEqOPFAWfVo5Bw72Pw"
+                ], 
+                "hints": [
+                    "Integer overflow"
+                ], 
+                "id": 32, 
+                "name": "cariuang", 
+                "points": 535, 
+                "solves": 15
+            }, 
+            {
+                "category": "Pwn", 
+                "description": "print the flag with shellcode < 20 bytes\r\n\r\nnc 34.226.140.190 10002\r\n\r\nAuthor: djavaa - Arkavidia5", 
+                "files": [
+                    "/files/162d8baf0722ab65d6e30696635b34e3/shellcode?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjIzfQ.XoSOXQ.fxQ8FsSUJj7EAH2uUr8JeEnS_lE"
+                ], 
+                "hints": [
+                    "use return address for defeat pie"
+                ], 
+                "id": 34, 
+                "name": "shellcode", 
+                "points": 658, 
+                "solves": 13
+            }, 
+            {
+                "category": "Pwn", 
+                "description": "can you do something with floating point?\r\n\r\nnc 34.226.140.190 10001\r\n\r\nAuthor: djavaa - Arkavidia5", 
+                "files": [
+                    "/files/65c561167ed51c25803743b312d768b3/vault?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjIyfQ.XoSOXQ.Gbh5tccsk_b7IjzkX5f7xAePgW4"
+                ], 
+                "hints": [
+                    "- libc database\r\n- one_gadget\r\n- read + write everywhere (using float)\r\n- write attempt count\r\n- read __libc_start_main_ret\r\n- profit (?)"
+                ], 
+                "id": 33, 
+                "name": "vault", 
+                "points": 884, 
+                "solves": 8
+            }
+        ], 
+        "Reverse": [
+            {
+                "category": "Reverse", 
+                "description": "Get the password\r\n\r\nFormat flag: `Bootcamp{.*}`", 
+                "files": [
+                    "/files/4620f96e171f64e6741eab7c6f040ca8/password?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjI3fQ.XoSOXg.13Bx3457S_5V3jZZ-BDflgNTkZg"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 38, 
+                "name": "Password", 
+                "points": 50, 
+                "solves": 108
+            }, 
+            {
+                "category": "Reverse", 
+                "description": "Bisakah anda menebak key yang benar?\r\n\r\nFormat flag: `Bootcamp{.*}`", 
+                "files": [
+                    "/files/38993ba2223350d31ae147f3c1242fcf/rev?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjI2fQ.XoSOXQ.mST1A_sRIoc4al3b5W0LIBWM8wo"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 36, 
+                "name": "key", 
+                "points": 50, 
+                "solves": 22
+            }, 
+            {
+                "category": "Reverse", 
+                "description": "https://drive.google.com/open?id=1gsC0mw6r5_390ZO5L1aOobW1q1-9VtqV", 
+                "files": [
+                    "/files/53be2f3874d70ffae76da6d25df05d71/password.c?token=eyJ0ZWFtX2lkIjpudWxsLCJ1c2VyX2lkIjo0MTksImZpbGVfaWQiOjMyfQ.XoSOXg.wRLuxAz-b7f-hdJP2rvreDO40Rg"
+                ], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 50, 
+                "name": "IFEST-password", 
+                "points": 763, 
+                "solves": 11
+            }
+        ], 
+        "Survey": [
+            {
+                "category": "Survey", 
+                "description": "Terima kasih sudah mengikuti seleksi Bootcamp CTF.\r\n\r\nIsilah survey berikut untuk Bootcamp CTF yang lebih baik kedepannya.\r\n<br><a href=\"https://forms.gle/a3myZpW9dWZaHPB8A\">Link Survey</a>", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 44, 
+                "name": "Survey", 
+                "points": 300, 
+                "solves": 86
+            }
+        ], 
+        "Web": [
+            {
+                "category": "Web", 
+                "description": "Optimus Prime is coming\r\n\r\nhttp://18.139.8.91:3015/\r\n\r\nauthor: Arkavidia5", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 27, 
+                "name": "Optimus Prime", 
+                "points": 50, 
+                "solves": 23
+            }, 
+            {
+                "category": "Web", 
+                "description": "Use your brain to get the flag :)\r\n\r\nhttp://18.139.8.91:1357/", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 26, 
+                "name": "babyPHP", 
+                "points": 231, 
+                "solves": 19
+            }, 
+            {
+                "category": "Web", 
+                "description": "Kulit Manggis, kini ada ekstraknya\r\n\r\nhttp://18.139.8.91:3100/\r\n\r\nAuthor: um - Arkavidia5", 
+                "files": [], 
+                "hints": [
+                    "-"
+                ], 
+                "id": 29, 
+                "name": "Kulit Manggis", 
+                "points": 50, 
+                "solves": 25
+            }
+        ]
+    }, 
+    "title": "Online Playground CTF for Beginner", 
+    "url": "http://playgroundctf.xyz"
+}
